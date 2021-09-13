@@ -1,0 +1,815 @@
+--------------------------------------------------------
+--  파일이 생성됨 - 금요일-2월-26-2021   
+--------------------------------------------------------
+--------------------------------------------------------
+--  DDL for Sequence CARTDETAIL_SEQ
+--------------------------------------------------------
+
+   CREATE SEQUENCE  "CARTDETAIL_SEQ"  MINVALUE 1 MAXVALUE 9999999999999999999999999999 INCREMENT BY 1 START WITH 137 CACHE 20 NOORDER  NOCYCLE ;
+--------------------------------------------------------
+--  DDL for Sequence NOTICE_SEQ
+--------------------------------------------------------
+
+   CREATE SEQUENCE  "NOTICE_SEQ"  MINVALUE 1 MAXVALUE 9999999999999999999999999999 INCREMENT BY 1 START WITH 61 CACHE 20 NOORDER  NOCYCLE ;
+--------------------------------------------------------
+--  DDL for Sequence ORDERDETAIL_SEQ
+--------------------------------------------------------
+
+   CREATE SEQUENCE  "ORDERDETAIL_SEQ"  MINVALUE 1 MAXVALUE 9999999999999999999999999999 INCREMENT BY 1 START WITH 441 CACHE 20 NOORDER  NOCYCLE ;
+--------------------------------------------------------
+--  DDL for Sequence ORDER_SEQ
+--------------------------------------------------------
+
+   CREATE SEQUENCE  "ORDER_SEQ"  MINVALUE 1 MAXVALUE 9999999999999999999999999999 INCREMENT BY 1 START WITH 41 CACHE 20 NOORDER  NOCYCLE ;
+--------------------------------------------------------
+--  DDL for Sequence REVIEW_SEQ
+--------------------------------------------------------
+
+   CREATE SEQUENCE  "REVIEW_SEQ"  MINVALUE 1 MAXVALUE 9999999999999999999999999999 INCREMENT BY 1 START WITH 61 CACHE 20 NOORDER  NOCYCLE ;
+--------------------------------------------------------
+--  DDL for Table CART
+--------------------------------------------------------
+
+  CREATE TABLE "CART" 
+   (	"CART_ID" VARCHAR2(30), 
+	"MEM_ID" VARCHAR2(15)
+   ) ;
+
+   COMMENT ON COLUMN "CART"."CART_ID" IS '장바구니 번호';
+   COMMENT ON COLUMN "CART"."MEM_ID" IS '회원 ID';
+   COMMENT ON TABLE "CART"  IS '장바구니';
+--------------------------------------------------------
+--  DDL for Table CARTDETAIL
+--------------------------------------------------------
+
+  CREATE TABLE "CARTDETAIL" 
+   (	"CARTDETAIL_NO" VARCHAR2(10), 
+	"CART_ID" VARCHAR2(13), 
+	"CART_QTY" NUMBER(5,0), 
+	"PROD_ID" VARCHAR2(10)
+   ) ;
+
+   COMMENT ON COLUMN "CARTDETAIL"."CARTDETAIL_NO" IS '장바구니 상세 번호';
+   COMMENT ON COLUMN "CARTDETAIL"."CART_ID" IS '장바구니 번호';
+   COMMENT ON COLUMN "CARTDETAIL"."CART_QTY" IS '장바구니 상품 수량';
+   COMMENT ON COLUMN "CARTDETAIL"."PROD_ID" IS '상품 코드';
+   COMMENT ON TABLE "CARTDETAIL"  IS '장바구니 상세';
+--------------------------------------------------------
+--  DDL for Table LPROD
+--------------------------------------------------------
+
+  CREATE TABLE "LPROD" 
+   (	"LPROD_ID" NUMBER(5,0), 
+	"LPROD_GU" CHAR(4), 
+	"LPROD_NM" VARCHAR2(40)
+   ) ;
+
+   COMMENT ON COLUMN "LPROD"."LPROD_ID" IS '순번';
+   COMMENT ON COLUMN "LPROD"."LPROD_GU" IS '상품 분류 코드';
+   COMMENT ON COLUMN "LPROD"."LPROD_NM" IS '상품 분류 명';
+   COMMENT ON TABLE "LPROD"  IS '상품 분류 정보';
+--------------------------------------------------------
+--  DDL for Table MEMBER
+--------------------------------------------------------
+
+  CREATE TABLE "MEMBER" 
+   (	"MEM_ID" VARCHAR2(15), 
+	"MEM_PASS" VARCHAR2(15), 
+	"MEM_NAME" VARCHAR2(20), 
+	"MEM_SEX" VARCHAR2(9), 
+	"MEM_BIR" DATE, 
+	"MEM_ZIP" CHAR(15), 
+	"MEM_ADD1" VARCHAR2(100), 
+	"MEM_ADD2" VARCHAR2(80), 
+	"MEM_HOMETEL" VARCHAR2(14), 
+	"MEM_HP" VARCHAR2(15), 
+	"MEM_MAIL" VARCHAR2(60), 
+	"MEM_CASH" NUMBER(10,0)
+   ) ;
+
+   COMMENT ON COLUMN "MEMBER"."MEM_ID" IS '회원 ID';
+   COMMENT ON COLUMN "MEMBER"."MEM_PASS" IS '비밀번호';
+   COMMENT ON COLUMN "MEMBER"."MEM_NAME" IS '성명';
+   COMMENT ON COLUMN "MEMBER"."MEM_SEX" IS '성별';
+   COMMENT ON COLUMN "MEMBER"."MEM_BIR" IS '생일';
+   COMMENT ON COLUMN "MEMBER"."MEM_ZIP" IS '우편번호';
+   COMMENT ON COLUMN "MEMBER"."MEM_ADD1" IS '주소1';
+   COMMENT ON COLUMN "MEMBER"."MEM_ADD2" IS '주소2';
+   COMMENT ON COLUMN "MEMBER"."MEM_HOMETEL" IS '집 전화 번호';
+   COMMENT ON COLUMN "MEMBER"."MEM_HP" IS '이동 전화';
+   COMMENT ON COLUMN "MEMBER"."MEM_MAIL" IS '이메일 주소';
+   COMMENT ON COLUMN "MEMBER"."MEM_CASH" IS '보유 캐시';
+   COMMENT ON TABLE "MEMBER"  IS '회원 정보';
+--------------------------------------------------------
+--  DDL for Table NOTICE
+--------------------------------------------------------
+
+  CREATE TABLE "NOTICE" 
+   (	"NOTICE_NO" VARCHAR2(30), 
+	"NOTICE_SENDER" VARCHAR2(30), 
+	"NOTICE_DATE" VARCHAR2(30), 
+	"NOTICE_TITLE" VARCHAR2(60), 
+	"NOTICE_CONTENT" VARCHAR2(90), 
+	"NOTICE_STATUS" VARCHAR2(20), 
+	"MEM_ID" VARCHAR2(15)
+   ) ;
+--------------------------------------------------------
+--  DDL for Table ORDER1
+--------------------------------------------------------
+
+  CREATE TABLE "ORDER1" 
+   (	"ORDER1_NO" VARCHAR2(50), 
+	"MEM_ID" VARCHAR2(15), 
+	"ORDER1_STATUS" VARCHAR2(21), 
+	"ORDER1_COST" NUMBER(10,0)
+   ) ;
+
+   COMMENT ON COLUMN "ORDER1"."ORDER1_NO" IS '주문 번호';
+   COMMENT ON COLUMN "ORDER1"."MEM_ID" IS '회원 ID';
+   COMMENT ON COLUMN "ORDER1"."ORDER1_STATUS" IS '주문 상태';
+   COMMENT ON COLUMN "ORDER1"."ORDER1_COST" IS '주문 금액';
+   COMMENT ON TABLE "ORDER1"  IS '주문';
+--------------------------------------------------------
+--  DDL for Table ORDERDETAIL
+--------------------------------------------------------
+
+  CREATE TABLE "ORDERDETAIL" 
+   (	"ORDERDETAIL_NO" VARCHAR2(50), 
+	"ORDER1_NO" VARCHAR2(50), 
+	"PROD_ID" VARCHAR2(10), 
+	"ORDERDETAIL_QTY" NUMBER(5,0)
+   ) ;
+--------------------------------------------------------
+--  DDL for Table PROD
+--------------------------------------------------------
+
+  CREATE TABLE "PROD" 
+   (	"PROD_ID" VARCHAR2(10), 
+	"LPROD_GU" CHAR(4), 
+	"PROD_NAME" VARCHAR2(300), 
+	"PROD_TOTALSTOCK" NUMBER(10,0), 
+	"PROD_SALE" NUMBER(10,0), 
+	"PRDO_IMG" VARCHAR2(40), 
+	"PROD_DETAIL" CLOB, 
+	"PROD_INFO" VARCHAR2(4000)
+   ) ;
+
+   COMMENT ON COLUMN "PROD"."PROD_ID" IS '상품 코드';
+   COMMENT ON COLUMN "PROD"."LPROD_GU" IS '상품 분류 코드';
+   COMMENT ON COLUMN "PROD"."PROD_NAME" IS '상품 명';
+   COMMENT ON COLUMN "PROD"."PROD_TOTALSTOCK" IS '재고 수량';
+   COMMENT ON COLUMN "PROD"."PROD_SALE" IS '판매가';
+   COMMENT ON COLUMN "PROD"."PRDO_IMG" IS '이미지(소)';
+   COMMENT ON COLUMN "PROD"."PROD_DETAIL" IS '상품 정보';
+   COMMENT ON TABLE "PROD"  IS '상품';
+--------------------------------------------------------
+--  DDL for Table REVIEW
+--------------------------------------------------------
+
+  CREATE TABLE "REVIEW" 
+   (	"REVIEW_NO" NUMBER(5,0), 
+	"MEM_ID" VARCHAR2(15), 
+	"PROD_ID" VARCHAR2(10), 
+	"RATING" NUMBER(1,0), 
+	"CONTENT" VARCHAR2(80)
+   ) ;
+
+   COMMENT ON COLUMN "REVIEW"."REVIEW_NO" IS '후기번호';
+   COMMENT ON COLUMN "REVIEW"."MEM_ID" IS '회원 ID';
+   COMMENT ON COLUMN "REVIEW"."PROD_ID" IS '상품 코드';
+   COMMENT ON COLUMN "REVIEW"."RATING" IS '평점';
+   COMMENT ON COLUMN "REVIEW"."CONTENT" IS '내용';
+   COMMENT ON TABLE "REVIEW"  IS '리뷰';
+--------------------------------------------------------
+--  DDL for Table SALE
+--------------------------------------------------------
+
+  CREATE TABLE "SALE" 
+   (	"SALE_NO" VARCHAR2(10), 
+	"SALE_TITLE" VARCHAR2(200), 
+	"SALE_DETAIL" CLOB
+   ) ;
+
+   COMMENT ON COLUMN "SALE"."SALE_NO" IS '판매글 번호';
+   COMMENT ON COLUMN "SALE"."SALE_TITLE" IS '판매글 제목';
+   COMMENT ON COLUMN "SALE"."SALE_DETAIL" IS '판매글 상세 설명';
+   COMMENT ON TABLE "SALE"  IS '판매';
+--------------------------------------------------------
+--  DDL for Table SALEDETAIL
+--------------------------------------------------------
+
+  CREATE TABLE "SALEDETAIL" 
+   (	"SALEDETAIL_NO" VARCHAR2(10), 
+	"SALE_NO" VARCHAR2(10), 
+	"PROD_ID" VARCHAR2(10)
+   ) ;
+
+   COMMENT ON COLUMN "SALEDETAIL"."SALEDETAIL_NO" IS '판매글 상세 번호';
+   COMMENT ON COLUMN "SALEDETAIL"."SALE_NO" IS '판매글 번호';
+   COMMENT ON COLUMN "SALEDETAIL"."PROD_ID" IS '상품 코드';
+   COMMENT ON TABLE "SALEDETAIL"  IS '판매 상세';
+REM INSERTING into CART
+SET DEFINE OFF;
+Insert into CART (CART_ID,MEM_ID) values ('asdf1cart','asdf1');
+Insert into CART (CART_ID,MEM_ID) values ('cdw34cart','cdw34');
+Insert into CART (CART_ID,MEM_ID) values ('a001cart','a001');
+Insert into CART (CART_ID,MEM_ID) values ('b001cart','b001');
+Insert into CART (CART_ID,MEM_ID) values ('c001cart','c001');
+Insert into CART (CART_ID,MEM_ID) values ('d001cart','d001');
+Insert into CART (CART_ID,MEM_ID) values ('e001cart','e001');
+Insert into CART (CART_ID,MEM_ID) values ('f001cart','f001');
+Insert into CART (CART_ID,MEM_ID) values ('g001cart','g001');
+Insert into CART (CART_ID,MEM_ID) values ('h001cart','h001');
+Insert into CART (CART_ID,MEM_ID) values ('i001cart','i001');
+Insert into CART (CART_ID,MEM_ID) values ('j001cart','j001');
+Insert into CART (CART_ID,MEM_ID) values ('k001cart','k001');
+Insert into CART (CART_ID,MEM_ID) values ('l001cart','l001');
+Insert into CART (CART_ID,MEM_ID) values ('m001cart','m001');
+Insert into CART (CART_ID,MEM_ID) values ('n001cart','n001');
+Insert into CART (CART_ID,MEM_ID) values ('o001cart','o001');
+Insert into CART (CART_ID,MEM_ID) values ('p001cart','p001');
+Insert into CART (CART_ID,MEM_ID) values ('q001cart','q001');
+Insert into CART (CART_ID,MEM_ID) values ('r001cart','r001');
+Insert into CART (CART_ID,MEM_ID) values ('s001cart','s001');
+Insert into CART (CART_ID,MEM_ID) values ('t001cart','t001');
+Insert into CART (CART_ID,MEM_ID) values ('x001cart','x001');
+Insert into CART (CART_ID,MEM_ID) values ('u001cart','u001');
+Insert into CART (CART_ID,MEM_ID) values ('v001cart','v001');
+Insert into CART (CART_ID,MEM_ID) values ('w001cart','w001');
+Insert into CART (CART_ID,MEM_ID) values ('cdw3434cart','cdw3434');
+Insert into CART (CART_ID,MEM_ID) values ('admincart','admin');
+Insert into CART (CART_ID,MEM_ID) values ('cdwcdw34cart','cdwcdw34');
+REM INSERTING into CARTDETAIL
+SET DEFINE OFF;
+Insert into CARTDETAIL (CARTDETAIL_NO,CART_ID,CART_QTY,PROD_ID) values ('131','e001cart',1,'P104000008');
+Insert into CARTDETAIL (CARTDETAIL_NO,CART_ID,CART_QTY,PROD_ID) values ('123','cdw34cart',1,'P103000005');
+REM INSERTING into LPROD
+SET DEFINE OFF;
+Insert into LPROD (LPROD_ID,LPROD_GU,LPROD_NM) values (1,'P101','TV');
+Insert into LPROD (LPROD_ID,LPROD_GU,LPROD_NM) values (2,'P102','컴퓨터제품');
+Insert into LPROD (LPROD_ID,LPROD_GU,LPROD_NM) values (3,'P103','노트북');
+Insert into LPROD (LPROD_ID,LPROD_GU,LPROD_NM) values (4,'P104','태블릿');
+Insert into LPROD (LPROD_ID,LPROD_GU,LPROD_NM) values (5,'P105','모바일');
+Insert into LPROD (LPROD_ID,LPROD_GU,LPROD_NM) values (6,'P106','카메라');
+Insert into LPROD (LPROD_ID,LPROD_GU,LPROD_NM) values (7,'P107','음향기기');
+REM INSERTING into MEMBER
+SET DEFINE OFF;
+Insert into MEMBER (MEM_ID,MEM_PASS,MEM_NAME,MEM_SEX,MEM_BIR,MEM_ZIP,MEM_ADD1,MEM_ADD2,MEM_HOMETEL,MEM_HP,MEM_MAIL,MEM_CASH) values ('a001','1','김은대','남',to_date('76/01/15','RR/MM/DD'),'135-972        ','충남 논산시 양촌면','심내리123-1','042-621-4615','011-621-4615','pyoedab@lycos.co.kr',2027);
+Insert into MEMBER (MEM_ID,MEM_PASS,MEM_NAME,MEM_SEX,MEM_BIR,MEM_ZIP,MEM_ADD1,MEM_ADD2,MEM_HOMETEL,MEM_HP,MEM_MAIL,MEM_CASH) values ('b001','1','이쁜이','여',to_date('74/01/07','RR/MM/DD'),'700-030        ','서울시 천사동 예쁜마을','1004-29','02-888-9999','09-999-9999','engelcd@pretty.net',2323);
+Insert into MEMBER (MEM_ID,MEM_PASS,MEM_NAME,MEM_SEX,MEM_BIR,MEM_ZIP,MEM_ADD1,MEM_ADD2,MEM_HOMETEL,MEM_HP,MEM_MAIL,MEM_CASH) values ('c001','1','신용환','남',to_date('74/01/24','RR/MM/DD'),'407-817        ','대전광역시 중구 대흥동','477-9','042-123-5678','011-123-5678','kyh01e@hanmail.net',4235);
+Insert into MEMBER (MEM_ID,MEM_PASS,MEM_NAME,MEM_SEX,MEM_BIR,MEM_ZIP,MEM_ADD1,MEM_ADD2,MEM_HOMETEL,MEM_HP,MEM_MAIL,MEM_CASH) values ('d001','1','성윤미','여',to_date('46/04/09','RR/MM/DD'),'501-705        ','대전시 중구 하늘동 ','땅 3번지','042-222-8877','019-222-8877','dbs81f@hanmail.net',230943);
+Insert into MEMBER (MEM_ID,MEM_PASS,MEM_NAME,MEM_SEX,MEM_BIR,MEM_ZIP,MEM_ADD1,MEM_ADD2,MEM_HOMETEL,MEM_HP,MEM_MAIL,MEM_CASH) values ('e001','1','이혜나','여',to_date('75/05/01','RR/MM/DD'),'617-800        ','대전시 대덕구 읍내동','혜강아파트','042-432-8901','011-123-5678','bosiang@hanmail.net',1241);
+Insert into MEMBER (MEM_ID,MEM_PASS,MEM_NAME,MEM_SEX,MEM_BIR,MEM_ZIP,MEM_ADD1,MEM_ADD2,MEM_HOMETEL,MEM_HP,MEM_MAIL,MEM_CASH) values ('f001','1','신영남','남',to_date('72/11/04','RR/MM/DD'),'140-706        ','대전광역시 대흥동','65-33 303호','042-253-2121','011-253-2121','SUPER-KHG@HANMAIL.NET',46210);
+Insert into MEMBER (MEM_ID,MEM_PASS,MEM_NAME,MEM_SEX,MEM_BIR,MEM_ZIP,MEM_ADD1,MEM_ADD2,MEM_HOMETEL,MEM_HP,MEM_MAIL,MEM_CASH) values ('g001','1','송경희','여',to_date('65/01/01','RR/MM/DD'),'339-841        ','충남금산군 제원면','심내리123-1','0412-356-3578','017-356-3578','lim052@hanmail.net',800);
+Insert into MEMBER (MEM_ID,MEM_PASS,MEM_NAME,MEM_SEX,MEM_BIR,MEM_ZIP,MEM_ADD1,MEM_ADD2,MEM_HOMETEL,MEM_HP,MEM_MAIL,MEM_CASH) values ('h001','1','라준호','남',to_date('67/03/01','RR/MM/DD'),'339-841        ','충남 논산시 양촌면','산직3구 345','042-522-1679','019-522-1679','wingl7@hanmail.net',2444);
+Insert into MEMBER (MEM_ID,MEM_PASS,MEM_NAME,MEM_SEX,MEM_BIR,MEM_ZIP,MEM_ADD1,MEM_ADD2,MEM_HOMETEL,MEM_HP,MEM_MAIL,MEM_CASH) values ('i001','1','최지현','여',to_date('74/12/20','RR/MM/DD'),'306-702        ','대전시 동구 가양1동','768-12','042-614-6914','017-614-6914','pan@orgio.net',900);
+Insert into MEMBER (MEM_ID,MEM_PASS,MEM_NAME,MEM_SEX,MEM_BIR,MEM_ZIP,MEM_ADD1,MEM_ADD2,MEM_HOMETEL,MEM_HP,MEM_MAIL,MEM_CASH) values ('j001','1','김윤희','여',to_date('75/11/21','RR/MM/DD'),'306-702        ','대전시 서구 삼천동','한신아파트305동309호','042-332-8976','018-332-8976','maxsys@hanmail.net',1189912);
+Insert into MEMBER (MEM_ID,MEM_PASS,MEM_NAME,MEM_SEX,MEM_BIR,MEM_ZIP,MEM_ADD1,MEM_ADD2,MEM_HOMETEL,MEM_HP,MEM_MAIL,MEM_CASH) values ('k001','1','오철희','남',to_date('62/01/23','RR/MM/DD'),'306-702        ','대전시 대덕구 대화동','34-567','042-157-8765','016-157-8765','equus@orgio.net',3700);
+Insert into MEMBER (MEM_ID,MEM_PASS,MEM_NAME,MEM_SEX,MEM_BIR,MEM_ZIP,MEM_ADD1,MEM_ADD2,MEM_HOMETEL,MEM_HP,MEM_MAIL,MEM_CASH) values ('l001','1','구길동','남',to_date('88/12/14','RR/MM/DD'),'339-841        ','충남금산군 금산읍',' 하리35-322','0412-322-8865','016-322-8865','email815@hanmail.co.kr',1000);
+Insert into MEMBER (MEM_ID,MEM_PASS,MEM_NAME,MEM_SEX,MEM_BIR,MEM_ZIP,MEM_ADD1,MEM_ADD2,MEM_HOMETEL,MEM_HP,MEM_MAIL,MEM_CASH) values ('m001','1','박지은','여',to_date('75/03/15','RR/MM/DD'),'306-702        ','대전광역시 서구 갈마동','인성아파트 234동 907호','042-252-0675','016-252-0675','happy@hanmail.net',2700);
+Insert into MEMBER (MEM_ID,MEM_PASS,MEM_NAME,MEM_SEX,MEM_BIR,MEM_ZIP,MEM_ADD1,MEM_ADD2,MEM_HOMETEL,MEM_HP,MEM_MAIL,MEM_CASH) values ('n001','1','탁원재','남',to_date('75/03/23','RR/MM/DD'),'306-702        ','대전시 동구 자양동','32-23','042-632-2176','019-632-2176','ping75@unitel.co.kr',2700);
+Insert into MEMBER (MEM_ID,MEM_PASS,MEM_NAME,MEM_SEX,MEM_BIR,MEM_ZIP,MEM_ADD1,MEM_ADD2,MEM_HOMETEL,MEM_HP,MEM_MAIL,MEM_CASH) values ('o001','1','배인정','여',to_date('78/09/30','RR/MM/DD'),'306-702        ','대전시 서구 갈마동','경성아파트502동1101호','042-622-5971','011-622-5971','tar-song@hanmail.net',2700);
+Insert into MEMBER (MEM_ID,MEM_PASS,MEM_NAME,MEM_SEX,MEM_BIR,MEM_ZIP,MEM_ADD1,MEM_ADD2,MEM_HOMETEL,MEM_HP,MEM_MAIL,MEM_CASH) values ('p001','1','오성순','여',to_date('73/08/05','RR/MM/DD'),'306-702        ','대전유성구송강동','한솔아파트 703동 407호','042-810-7658','017-810-7658','sahra235@intz.com',2200);
+Insert into MEMBER (MEM_ID,MEM_PASS,MEM_NAME,MEM_SEX,MEM_BIR,MEM_ZIP,MEM_ADD1,MEM_ADD2,MEM_HOMETEL,MEM_HP,MEM_MAIL,MEM_CASH) values ('q001','1','육평회','남',to_date('72/10/20','RR/MM/DD'),'306-702        ','대구광역시 대덕구 중리동','678-43','042-823-2359','017-823-2359','kph@hanmail.net',1500);
+Insert into MEMBER (MEM_ID,MEM_PASS,MEM_NAME,MEM_SEX,MEM_BIR,MEM_ZIP,MEM_ADD1,MEM_ADD2,MEM_HOMETEL,MEM_HP,MEM_MAIL,MEM_CASH) values ('r001','1','정은실','여',to_date('76/11/26','RR/MM/DD'),'306-702        ','대전시 동구 용전동','321-25','042-533-8768','016-533-8768','econie@hanmail.net',124);
+Insert into MEMBER (MEM_ID,MEM_PASS,MEM_NAME,MEM_SEX,MEM_BIR,MEM_ZIP,MEM_ADD1,MEM_ADD2,MEM_HOMETEL,MEM_HP,MEM_MAIL,MEM_CASH) values ('s001','1','안은정','여',to_date('77/10/01','RR/MM/DD'),'306-702        ','대구광역시 서구 탄방동','산호아파트 107동 802호','042-222-8155','019-222-8155','songej@hanmail.net',3200);
+Insert into MEMBER (MEM_ID,MEM_PASS,MEM_NAME,MEM_SEX,MEM_BIR,MEM_ZIP,MEM_ADD1,MEM_ADD2,MEM_HOMETEL,MEM_HP,MEM_MAIL,MEM_CASH) values ('t001','1','성원태','남',to_date('76/05/06','RR/MM/DD'),'306-702        ','대전광역시 중구 유천동','한사랑아파트 302동 504호','042-272-8657','011-272-8657','bob6@hanmail.net',420);
+Insert into MEMBER (MEM_ID,MEM_PASS,MEM_NAME,MEM_SEX,MEM_BIR,MEM_ZIP,MEM_ADD1,MEM_ADD2,MEM_HOMETEL,MEM_HP,MEM_MAIL,MEM_CASH) values ('u001','1','김성욱','남',to_date('73/10/10','RR/MM/DD'),'306-702        ','대전시 동구 용전동','76-54','042-273-9056','017-810-7658','pss576@orgio.net',2700);
+Insert into MEMBER (MEM_ID,MEM_PASS,MEM_NAME,MEM_SEX,MEM_BIR,MEM_ZIP,MEM_ADD1,MEM_ADD2,MEM_HOMETEL,MEM_HP,MEM_MAIL,MEM_CASH) values ('v001','1','이진영','여',to_date('52/01/31','RR/MM/DD'),'306-702        ','대전시 동구 용전동','566-39번지','042-240-8766','019-522-1679','gagsong@orgio.net',4300);
+Insert into MEMBER (MEM_ID,MEM_PASS,MEM_NAME,MEM_SEX,MEM_BIR,MEM_ZIP,MEM_ADD1,MEM_ADD2,MEM_HOMETEL,MEM_HP,MEM_MAIL,MEM_CASH) values ('w001','1','김형모','남',to_date('63/12/13','RR/MM/DD'),'306-702        ','대전시 대덕구 연축동','23-43','02-345-9877','016-322-8865','songone@hanmail.net',2700);
+Insert into MEMBER (MEM_ID,MEM_PASS,MEM_NAME,MEM_SEX,MEM_BIR,MEM_ZIP,MEM_ADD1,MEM_ADD2,MEM_HOMETEL,MEM_HP,MEM_MAIL,MEM_CASH) values ('x001','1','진현경','여',to_date('77/03/19','RR/MM/DD'),'306-702        ','대전광역시 동구 오정동','43-26','042-423-8767','019-223-8767','happysong@hanmail.net',8700);
+Insert into MEMBER (MEM_ID,MEM_PASS,MEM_NAME,MEM_SEX,MEM_BIR,MEM_ZIP,MEM_ADD1,MEM_ADD2,MEM_HOMETEL,MEM_HP,MEM_MAIL,MEM_CASH) values ('asdf1','1','배인지','남',to_date('21/02/10','RR/MM/DD'),'306-702        ','부산 금정구 산성동','12번지','042-233-82412','011-223-8767','sahra235@intz.com',2312);
+Insert into MEMBER (MEM_ID,MEM_PASS,MEM_NAME,MEM_SEX,MEM_BIR,MEM_ZIP,MEM_ADD1,MEM_ADD2,MEM_HOMETEL,MEM_HP,MEM_MAIL,MEM_CASH) values ('cdw34','1','신구남','여',to_date('92/09/03','RR/MM/DD'),'306-702        ','대구 목정구 구이동','12-167번지','042-262-8767','042-262-8767','pan@orgio.net',7262);
+Insert into MEMBER (MEM_ID,MEM_PASS,MEM_NAME,MEM_SEX,MEM_BIR,MEM_ZIP,MEM_ADD1,MEM_ADD2,MEM_HOMETEL,MEM_HP,MEM_MAIL,MEM_CASH) values ('cdw3434','1','최영준','남',to_date('92/09/06','RR/MM/DD'),'306-702        ','대전 대덕구 읍내동 이이이이이','현대아파트 102동 291호','042-438-1282','042-438-1282','cdwcdw34@gmail.com',0);
+Insert into MEMBER (MEM_ID,MEM_PASS,MEM_NAME,MEM_SEX,MEM_BIR,MEM_ZIP,MEM_ADD1,MEM_ADD2,MEM_HOMETEL,MEM_HP,MEM_MAIL,MEM_CASH) values ('admin','1','최영준','여',to_date('92/09/06','RR/MM/DD'),'306-702        ','서울특별시 광산구 이류동','12-42','042-263-8231','042-263-8231','cdw34@gmae.com',0);
+Insert into MEMBER (MEM_ID,MEM_PASS,MEM_NAME,MEM_SEX,MEM_BIR,MEM_ZIP,MEM_ADD1,MEM_ADD2,MEM_HOMETEL,MEM_HP,MEM_MAIL,MEM_CASH) values ('cdwcdw34','cdwyj5yj0','김이최','남',to_date('67/02/12','RR/MM/DD'),'306-702        ','대전 광진구 어류동 우리아파트','102동 501호','042-438-1282','011-223-8767','cead@gmail.com',97600);
+REM INSERTING into NOTICE
+SET DEFINE OFF;
+Insert into NOTICE (NOTICE_NO,NOTICE_SENDER,NOTICE_DATE,NOTICE_TITLE,NOTICE_CONTENT,NOTICE_STATUS,MEM_ID) values ('23','관리자','21-02-26 10:32:10','주문하신 상품의 배송이 시작되었습니다','예상 도착일은 2/27(토) 입니다. ','읽지않음','cdw34');
+Insert into NOTICE (NOTICE_NO,NOTICE_SENDER,NOTICE_DATE,NOTICE_TITLE,NOTICE_CONTENT,NOTICE_STATUS,MEM_ID) values ('21','관리자','21-02-26 10:23:43','첫주문을 정말정말 축하드립니다~!','축하의 의미로 2000캐시를 선물로 드립니다~!!!','읽지않음','a001');
+Insert into NOTICE (NOTICE_NO,NOTICE_SENDER,NOTICE_DATE,NOTICE_TITLE,NOTICE_CONTENT,NOTICE_STATUS,MEM_ID) values ('22','관리자','21-02-26 10:27:44','주문하신 상품의 배송이 시작되었습니다','예상 도착일은 2/27(토) 입니다. ','읽지않음','a001');
+Insert into NOTICE (NOTICE_NO,NOTICE_SENDER,NOTICE_DATE,NOTICE_TITLE,NOTICE_CONTENT,NOTICE_STATUS,MEM_ID) values ('24','관리자','21-02-26 10:37:54','주문하신 상품의 배송이 시작되었습니다','예상 도착일은 2/27(토) 입니다. ','읽지않음','cdw34');
+Insert into NOTICE (NOTICE_NO,NOTICE_SENDER,NOTICE_DATE,NOTICE_TITLE,NOTICE_CONTENT,NOTICE_STATUS,MEM_ID) values ('25','관리자','21-02-26 10:40:46','주문하신 상품의 배송이 시작되었습니다','예상 도착일은 2/27(토) 입니다. ','읽지않음','cdw34');
+Insert into NOTICE (NOTICE_NO,NOTICE_SENDER,NOTICE_DATE,NOTICE_TITLE,NOTICE_CONTENT,NOTICE_STATUS,MEM_ID) values ('26','관리자','21-02-26 10:58:02','요청하신 환불이 정상적으로 처리되었습니다','(+)10735020캐시를 돌려받았습니다','읽지않음','a001');
+Insert into NOTICE (NOTICE_NO,NOTICE_SENDER,NOTICE_DATE,NOTICE_TITLE,NOTICE_CONTENT,NOTICE_STATUS,MEM_ID) values ('27','관리자','21-02-26 12:03:47','첫주문을 정말정말 축하드립니다~!','축하의 의미로 2000캐시를 선물로 드립니다~!!!','읽지않음','t001');
+Insert into NOTICE (NOTICE_NO,NOTICE_SENDER,NOTICE_DATE,NOTICE_TITLE,NOTICE_CONTENT,NOTICE_STATUS,MEM_ID) values ('28','관리자','21-02-26 12:10:44','주문하신 상품의 배송이 시작되었습니다','예상 도착일은 2/27(토) 입니다. ','읽지않음','t001');
+Insert into NOTICE (NOTICE_NO,NOTICE_SENDER,NOTICE_DATE,NOTICE_TITLE,NOTICE_CONTENT,NOTICE_STATUS,MEM_ID) values ('29','관리자','21-02-26 12:11:21','첫주문을 정말정말 축하드립니다~!','축하의 의미로 2000캐시를 선물로 드립니다~!!!','읽지않음','f001');
+Insert into NOTICE (NOTICE_NO,NOTICE_SENDER,NOTICE_DATE,NOTICE_TITLE,NOTICE_CONTENT,NOTICE_STATUS,MEM_ID) values ('30','관리자','21-02-26 12:35:26','주문하신 상품의 배송이 시작되었습니다','예상 도착일은 2/27(토) 입니다. ','읽지않음','cdw34');
+Insert into NOTICE (NOTICE_NO,NOTICE_SENDER,NOTICE_DATE,NOTICE_TITLE,NOTICE_CONTENT,NOTICE_STATUS,MEM_ID) values ('31','관리자','21-02-26 12:45:00','주문하신 상품의 배송이 시작되었습니다','예상 도착일은 2/27(토) 입니다. ','읽지않음','cdw34');
+Insert into NOTICE (NOTICE_NO,NOTICE_SENDER,NOTICE_DATE,NOTICE_TITLE,NOTICE_CONTENT,NOTICE_STATUS,MEM_ID) values ('32','관리자','21-02-26 12:45:29','주문하신 상품의 배송이 시작되었습니다','예상 도착일은 2/27(토) 입니다. ','읽지않음','cdw34');
+Insert into NOTICE (NOTICE_NO,NOTICE_SENDER,NOTICE_DATE,NOTICE_TITLE,NOTICE_CONTENT,NOTICE_STATUS,MEM_ID) values ('33','관리자','21-02-26 12:46:40','요청하신 환불이 정상적으로 처리되었습니다','(+)2,577,440캐시를 돌려받았습니다','읽지않음','cdw34');
+Insert into NOTICE (NOTICE_NO,NOTICE_SENDER,NOTICE_DATE,NOTICE_TITLE,NOTICE_CONTENT,NOTICE_STATUS,MEM_ID) values ('34','관리자','21-02-26 01:43:27','첫주문을 정말정말 축하드립니다~!','축하의 의미로 2000캐시를 선물로 드립니다~!!!','읽지않음','a001');
+Insert into NOTICE (NOTICE_NO,NOTICE_SENDER,NOTICE_DATE,NOTICE_TITLE,NOTICE_CONTENT,NOTICE_STATUS,MEM_ID) values ('35','관리자','21-02-26 01:48:00','첫주문을 정말정말 축하드립니다~!','축하의 의미로 2000캐시를 선물로 드립니다~!!!','읽지않음','b001');
+Insert into NOTICE (NOTICE_NO,NOTICE_SENDER,NOTICE_DATE,NOTICE_TITLE,NOTICE_CONTENT,NOTICE_STATUS,MEM_ID) values ('36','관리자','21-02-26 01:48:54','첫주문을 정말정말 축하드립니다~!','축하의 의미로 2000캐시를 선물로 드립니다~!!!','읽지않음','d001');
+Insert into NOTICE (NOTICE_NO,NOTICE_SENDER,NOTICE_DATE,NOTICE_TITLE,NOTICE_CONTENT,NOTICE_STATUS,MEM_ID) values ('37','관리자','21-02-26 01:49:29','첫주문을 정말정말 축하드립니다~!','축하의 의미로 2000캐시를 선물로 드립니다~!!!','읽지않음','f001');
+Insert into NOTICE (NOTICE_NO,NOTICE_SENDER,NOTICE_DATE,NOTICE_TITLE,NOTICE_CONTENT,NOTICE_STATUS,MEM_ID) values ('38','관리자','21-02-26 01:50:23','첫주문을 정말정말 축하드립니다~!','축하의 의미로 2000캐시를 선물로 드립니다~!!!','읽지않음','r001');
+Insert into NOTICE (NOTICE_NO,NOTICE_SENDER,NOTICE_DATE,NOTICE_TITLE,NOTICE_CONTENT,NOTICE_STATUS,MEM_ID) values ('39','관리자','21-02-26 01:51:39','첫주문을 정말정말 축하드립니다~!','축하의 의미로 2000캐시를 선물로 드립니다~!!!','읽지않음','h001');
+Insert into NOTICE (NOTICE_NO,NOTICE_SENDER,NOTICE_DATE,NOTICE_TITLE,NOTICE_CONTENT,NOTICE_STATUS,MEM_ID) values ('40','관리자','21-02-26 01:56:29','회원가입을 진심으로 축하드립니다!','축하의 의미로 1000캐시를 선물로 드립니다~','읽음','cdwcdw34');
+Insert into NOTICE (NOTICE_NO,NOTICE_SENDER,NOTICE_DATE,NOTICE_TITLE,NOTICE_CONTENT,NOTICE_STATUS,MEM_ID) values ('41','관리자','21-02-26 02:40:45','첫주문을 정말정말 축하드립니다~!','축하의 의미로 2000캐시를 선물로 드립니다~!!!','읽지않음','j001');
+Insert into NOTICE (NOTICE_NO,NOTICE_SENDER,NOTICE_DATE,NOTICE_TITLE,NOTICE_CONTENT,NOTICE_STATUS,MEM_ID) values ('42','관리자','21-02-26 03:14:05','첫주문을 정말정말 축하드립니다~!','축하의 의미로 2000캐시를 선물로 드립니다~!!!','읽지않음','cdwcdw34');
+Insert into NOTICE (NOTICE_NO,NOTICE_SENDER,NOTICE_DATE,NOTICE_TITLE,NOTICE_CONTENT,NOTICE_STATUS,MEM_ID) values ('43','관리자','21-02-26 03:15:16','주문하신 상품의 배송이 시작되었습니다','예상 도착일은 2/27(토) 입니다. ','읽지않음','cdwcdw34');
+REM INSERTING into ORDER1
+SET DEFINE OFF;
+Insert into ORDER1 (ORDER1_NO,MEM_ID,ORDER1_STATUS,ORDER1_COST) values ('210225025649cdw34','cdw34','결제완료',35300400);
+Insert into ORDER1 (ORDER1_NO,MEM_ID,ORDER1_STATUS,ORDER1_COST) values ('210225032128cdw34','cdw34','결제완료',1185000);
+Insert into ORDER1 (ORDER1_NO,MEM_ID,ORDER1_STATUS,ORDER1_COST) values ('210225032536cdw34','cdw34','결제완료',134459500);
+Insert into ORDER1 (ORDER1_NO,MEM_ID,ORDER1_STATUS,ORDER1_COST) values ('210225032827cdw34','cdw34','결제완료',651650);
+Insert into ORDER1 (ORDER1_NO,MEM_ID,ORDER1_STATUS,ORDER1_COST) values ('210225033015cdw34','cdw34','결제완료',790000);
+Insert into ORDER1 (ORDER1_NO,MEM_ID,ORDER1_STATUS,ORDER1_COST) values ('210225033557cdw34','cdw34','결제완료',598800);
+Insert into ORDER1 (ORDER1_NO,MEM_ID,ORDER1_STATUS,ORDER1_COST) values ('210225022956cdw34','cdw34','결제완료',948000);
+Insert into ORDER1 (ORDER1_NO,MEM_ID,ORDER1_STATUS,ORDER1_COST) values ('210225033919cdw34','cdw34','결제완료',306960);
+Insert into ORDER1 (ORDER1_NO,MEM_ID,ORDER1_STATUS,ORDER1_COST) values ('210225034003cdw34','cdw34','결제완료',7047660);
+Insert into ORDER1 (ORDER1_NO,MEM_ID,ORDER1_STATUS,ORDER1_COST) values ('210225040347cdw34','cdw34','결제완료',1071680);
+Insert into ORDER1 (ORDER1_NO,MEM_ID,ORDER1_STATUS,ORDER1_COST) values ('210225043021cdw34','cdw34','배송완료',23488850);
+Insert into ORDER1 (ORDER1_NO,MEM_ID,ORDER1_STATUS,ORDER1_COST) values ('210225051134cdw34','cdw34','배송완료',11995000);
+Insert into ORDER1 (ORDER1_NO,MEM_ID,ORDER1_STATUS,ORDER1_COST) values ('210225051410cdw34','cdw34','반품신청',5997500);
+Insert into ORDER1 (ORDER1_NO,MEM_ID,ORDER1_STATUS,ORDER1_COST) values ('210226014800b001','b001','결제완료',25500);
+Insert into ORDER1 (ORDER1_NO,MEM_ID,ORDER1_STATUS,ORDER1_COST) values ('210126014853d001','d001','결제완료',28880);
+Insert into ORDER1 (ORDER1_NO,MEM_ID,ORDER1_STATUS,ORDER1_COST) values ('210226014928f001','f001','결제완료',19090);
+Insert into ORDER1 (ORDER1_NO,MEM_ID,ORDER1_STATUS,ORDER1_COST) values ('210226123127cdw34','cdw34','구매확정',6041620);
+Insert into ORDER1 (ORDER1_NO,MEM_ID,ORDER1_STATUS,ORDER1_COST) values ('210226123801cdw34','cdw34','결제완료',25580);
+Insert into ORDER1 (ORDER1_NO,MEM_ID,ORDER1_STATUS,ORDER1_COST) values ('210226124313cdw34','cdw34','환불완료',2577440);
+Insert into ORDER1 (ORDER1_NO,MEM_ID,ORDER1_STATUS,ORDER1_COST) values ('210226124419cdw34','cdw34','구매확정',748990);
+Insert into ORDER1 (ORDER1_NO,MEM_ID,ORDER1_STATUS,ORDER1_COST) values ('200126015022r001','r001','결제완료',8046000);
+Insert into ORDER1 (ORDER1_NO,MEM_ID,ORDER1_STATUS,ORDER1_COST) values ('210226015139h001','h001','결제완료',54380);
+Insert into ORDER1 (ORDER1_NO,MEM_ID,ORDER1_STATUS,ORDER1_COST) values ('210226014327a001','a001','결제완료',1699000);
+Insert into ORDER1 (ORDER1_NO,MEM_ID,ORDER1_STATUS,ORDER1_COST) values ('210226024045j001','j001','구매확정',25500);
+Insert into ORDER1 (ORDER1_NO,MEM_ID,ORDER1_STATUS,ORDER1_COST) values ('210226031405cdwcdw34','cdwcdw34','구매확정',905400);
+REM INSERTING into ORDERDETAIL
+SET DEFINE OFF;
+Insert into ORDERDETAIL (ORDERDETAIL_NO,ORDER1_NO,PROD_ID,ORDERDETAIL_QTY) values ('388','210225025649cdw34','P107000007',7);
+Insert into ORDERDETAIL (ORDERDETAIL_NO,ORDER1_NO,PROD_ID,ORDERDETAIL_QTY) values ('389','210225025649cdw34','P107000007',5);
+Insert into ORDERDETAIL (ORDERDETAIL_NO,ORDER1_NO,PROD_ID,ORDERDETAIL_QTY) values ('390','210225032128cdw34','P107000008',15);
+Insert into ORDERDETAIL (ORDERDETAIL_NO,ORDER1_NO,PROD_ID,ORDERDETAIL_QTY) values ('391','210225032536cdw34','P106000008',50);
+Insert into ORDERDETAIL (ORDERDETAIL_NO,ORDER1_NO,PROD_ID,ORDERDETAIL_QTY) values ('392','210225032827cdw34','P107000005',5);
+Insert into ORDERDETAIL (ORDERDETAIL_NO,ORDER1_NO,PROD_ID,ORDERDETAIL_QTY) values ('393','210225033015cdw34','P107000008',10);
+Insert into ORDERDETAIL (ORDERDETAIL_NO,ORDER1_NO,PROD_ID,ORDERDETAIL_QTY) values ('394','210225033557cdw34','P107000006',12);
+Insert into ORDERDETAIL (ORDERDETAIL_NO,ORDER1_NO,PROD_ID,ORDERDETAIL_QTY) values ('395','210225033919cdw34','P107000003',12);
+Insert into ORDERDETAIL (ORDERDETAIL_NO,ORDER1_NO,PROD_ID,ORDERDETAIL_QTY) values ('396','210225034003cdw34','P103000006',10);
+Insert into ORDERDETAIL (ORDERDETAIL_NO,ORDER1_NO,PROD_ID,ORDERDETAIL_QTY) values ('397','210225034003cdw34','P107000010',2);
+Insert into ORDERDETAIL (ORDERDETAIL_NO,ORDER1_NO,PROD_ID,ORDERDETAIL_QTY) values ('401','210225040347cdw34','P101000005',2);
+Insert into ORDERDETAIL (ORDERDETAIL_NO,ORDER1_NO,PROD_ID,ORDERDETAIL_QTY) values ('402','210225043021cdw34','P106000006',5);
+Insert into ORDERDETAIL (ORDERDETAIL_NO,ORDER1_NO,PROD_ID,ORDERDETAIL_QTY) values ('403','210225051134cdw34','P107000002',50);
+Insert into ORDERDETAIL (ORDERDETAIL_NO,ORDER1_NO,PROD_ID,ORDERDETAIL_QTY) values ('404','210225051410cdw34','P107000002',25);
+Insert into ORDERDETAIL (ORDERDETAIL_NO,ORDER1_NO,PROD_ID,ORDERDETAIL_QTY) values ('427','210226014800b001','P107000003',1);
+Insert into ORDERDETAIL (ORDERDETAIL_NO,ORDER1_NO,PROD_ID,ORDERDETAIL_QTY) values ('434','210226031405cdwcdw34','P105000001',1);
+Insert into ORDERDETAIL (ORDERDETAIL_NO,ORDER1_NO,PROD_ID,ORDERDETAIL_QTY) values ('429','210226014928f001','P107000004',1);
+Insert into ORDERDETAIL (ORDERDETAIL_NO,ORDER1_NO,PROD_ID,ORDERDETAIL_QTY) values ('430','200126015022r001','P101000003',12);
+Insert into ORDERDETAIL (ORDERDETAIL_NO,ORDER1_NO,PROD_ID,ORDERDETAIL_QTY) values ('428','210126014853d001','P107000010',1);
+Insert into ORDERDETAIL (ORDERDETAIL_NO,ORDER1_NO,PROD_ID,ORDERDETAIL_QTY) values ('432','210226015139h001','P107000010',1);
+Insert into ORDERDETAIL (ORDERDETAIL_NO,ORDER1_NO,PROD_ID,ORDERDETAIL_QTY) values ('433','210226024045j001','P107000003',1);
+Insert into ORDERDETAIL (ORDERDETAIL_NO,ORDER1_NO,PROD_ID,ORDERDETAIL_QTY) values ('435','210226031405cdwcdw34','P107000003',1);
+Insert into ORDERDETAIL (ORDERDETAIL_NO,ORDER1_NO,PROD_ID,ORDERDETAIL_QTY) values ('413','210226123127cdw34','P103000005',2);
+Insert into ORDERDETAIL (ORDERDETAIL_NO,ORDER1_NO,PROD_ID,ORDERDETAIL_QTY) values ('414','210226123127cdw34','P101000002',1);
+Insert into ORDERDETAIL (ORDERDETAIL_NO,ORDER1_NO,PROD_ID,ORDERDETAIL_QTY) values ('415','210226123127cdw34','P101000010',1);
+Insert into ORDERDETAIL (ORDERDETAIL_NO,ORDER1_NO,PROD_ID,ORDERDETAIL_QTY) values ('386','210225022956cdw34','P107000008',12);
+Insert into ORDERDETAIL (ORDERDETAIL_NO,ORDER1_NO,PROD_ID,ORDERDETAIL_QTY) values ('387','210225025649cdw34','P106000005',10);
+Insert into ORDERDETAIL (ORDERDETAIL_NO,ORDER1_NO,PROD_ID,ORDERDETAIL_QTY) values ('416','210226123127cdw34','P107000005',5);
+Insert into ORDERDETAIL (ORDERDETAIL_NO,ORDER1_NO,PROD_ID,ORDERDETAIL_QTY) values ('417','210226123801cdw34','P107000003',1);
+Insert into ORDERDETAIL (ORDERDETAIL_NO,ORDER1_NO,PROD_ID,ORDERDETAIL_QTY) values ('418','210226124313cdw34','P101000010',2);
+Insert into ORDERDETAIL (ORDERDETAIL_NO,ORDER1_NO,PROD_ID,ORDERDETAIL_QTY) values ('419','210226124419cdw34','P103000001',1);
+Insert into ORDERDETAIL (ORDERDETAIL_NO,ORDER1_NO,PROD_ID,ORDERDETAIL_QTY) values ('426','210226014327a001','P103000005',1);
+REM INSERTING into PROD
+SET DEFINE OFF;
+Insert into PROD (PROD_ID,LPROD_GU,PROD_NAME,PROD_TOTALSTOCK,PROD_SALE,PRDO_IMG,PROD_INFO) values ('P104000001','P104','삼성전자 갤럭시탭S6 라이트 10.4 Wi-Fi 64GB ',93,418420,'D:\\TEMP\\P104000001.JPG','태블릿PC / 안드로이드 10 /화면정보 26.42cm(10.4인치) / TFT-LCD / 2000x1200 / 224ppi / 5:3 / 60Hz /프로세서 엑시노스9 9611 / 옥타코어 / 2.3GHz+1.7GHz / Mali G72 /메모리 램:4GB / 내장:64GB / UFS2.1(내장) / microSD:최대1TB /네트워크 Wi-Fi전용 / Wi-Fi5 / 블루투스v5.0 / Wi-Fi 듀얼밴드 / 핫스팟 /카메라 후면:800만화소 / 전면:500만화소 / 동영상:1080p(FHD),30fps /스피커/단자 스피커: 2개 / USB타입C / 3.5mm단자 /액세서리 전용펜 포함 / 전용키보드 미지원 /배터리 7,040mAh / 사용시간:최대12시간 /규격 가로: 154.3mm / 세로: 244.5mm / 두께: 7.0mm / 465g');
+Insert into PROD (PROD_ID,LPROD_GU,PROD_NAME,PROD_TOTALSTOCK,PROD_SALE,PRDO_IMG,PROD_INFO) values ('P104000007','P104','삼성전자 갤럭시탭A 8.0 2019 with S펜 Wi-Fi 32GB ',100,272720,'D:\\TEMP\\P104000007.JPG','태블릿PC / 안드로이드 9.0 파이 /화면정보 20.32cm(8.인치) / TFT-LCD / 1920x1200 / 283ppi / 16:10 / 60Hz /프로세서 엑시노스7 7904 / 옥타코어 / 1.8GHz+1.6GHz / Mali G71 /메모리 램:3GB / 내장:32GB / microSD:최대512GB /네트워크 Wi-Fi전용 / Wi-Fi5 / 블루투스v5.0 / Wi-Fi 듀얼밴드 /카메라 후면:800만화소 / 전면:500만화소 / 동영상:1080p(FHD),30fps /스피커/단자 USB타입C / 3.5mm단자 /액세서리 전용펜 포함 / 전용키보드 미지원 /배터리 4,200mAh / 사용시간:최대11시간 /규격 가로: 122.4mm / 세로: 201.5mm / 두께: 8.9mm / 321g');
+Insert into PROD (PROD_ID,LPROD_GU,PROD_NAME,PROD_TOTALSTOCK,PROD_SALE,PRDO_IMG,PROD_INFO) values ('P103000003','P103','삼성전자 노트북 NT350XCR-AD5WA ',99,797000,'D:\\TEMP\\P103000003.JPG','39.62cm(15.6인치) / 인텔 / 코어i5-10세대 / 코멧레이크 / i5-10210U (1.6GHz) / 쿼드코어 / 운영체제(OS): 미포함(프리도스) / 1920x1080(FHD) / 눈부심방지 / 슬림형 베젤 / DDR4 / 8GB / M.2(NVMe) / 256GB / 내장그래픽 / UHD Graphics / 기가비트 유선랜 / 802.11ac(Wi-Fi 5) / HDMI / 웹캠 / USB Type-C / USB 3.0 / USB 2.0 / MicroSD카드 / TPM / ㅗ형 방향키 / 숫자 키패드(3열) / 배터리: 43Wh / 충전단자: DC / 두께: 18.9mm / 무게: 1.81kg / 일반유통상품 / 용도: 사무/인강용 / 색상: 화이트');
+Insert into PROD (PROD_ID,LPROD_GU,PROD_NAME,PROD_TOTALSTOCK,PROD_SALE,PRDO_IMG,PROD_INFO) values ('P102000010','P102','DELL 인스피론 27 7700 AIO DA7700 WH05KR ',100,1291760,'D:\\TEMP\\P102000010.JPG','인텔 / 코어i7-11세대 / 타이거레이크 / i7-1165G7 (4.7GHz) / DDR4 / 16GB / HDD:1TB / M.2 / 512GB / Iris Xe 그래픽스 / 1Gbps 유선 / 802.11ax(Wi-Fi 6) 무선 / 블루투스 / HDMI / USB 3.0 / USB Type-C / 웹캠 / 마이크 내장 / 외장 어댑터 / 윈도우10 / 일체형 / 10kg / 화면크기: 68.5cm(27인치) / 1920x1080 / 눈부심방지 / 광시야각 / 용도: 사무/인강용 / 구성변경상품');
+Insert into PROD (PROD_ID,LPROD_GU,PROD_NAME,PROD_TOTALSTOCK,PROD_SALE,PRDO_IMG,PROD_INFO) values ('P103000001','P103','LG전자 2020 울트라PC 13UD50N-GX30K ',87,748990,'D:\\TEMP\\P103000001.JPG','33.7cm(13인치) / 인텔 / 코어i3-10세대 / 코멧레이크 / i3-10110U (2.1GHz) / 듀얼코어 / 운영체제(OS): 미포함(프리도스) / 1920x1080(FHD) / IPS / 광시야각 / DDR4 / 8GB / M.2(NVMe) / 256GB / 내장그래픽 / UHD Graphics / 802.11ax(Wi-Fi 6) / HDMI / 웹캠(HD) / USB 3.1 / MicroSD카드 / ㅡ형 방향키 / 배터리: 51Wh / 충전단자: DC / 두께: 17.9mm / 무게: 1.3.kg / 일반유통상품 / 용도: 사무/인강용, 휴대용 / 색상: 실버');
+Insert into PROD (PROD_ID,LPROD_GU,PROD_NAME,PROD_TOTALSTOCK,PROD_SALE,PRDO_IMG,PROD_INFO) values ('P101000009','P101','더함 우버 U751UHD SMART HDR 크롬캐스트 ',100,1099000,'D:\\TEMP\\P101000009.JPG','189cm(75인치) / 4K UHD / IPS패널 / 서브픽셀: RGBW / 패널비트: 10비트 / 명암비: 100만:1 / 밝기: 350cd / 응답속도: 5ms / 스캔방식: 60Hz / 크로마샘플링: 4:4:4 / HDR10 / 2.0ch스피커(20W) / 스마트TV / 안드로이드OS / 음성인식 / 미라캐스트 / 넷플릭스 지원 / 유튜브 지원 / Wi-Fi / 유선랜 / HDMI(4개) / USB(2개) / HDMI 2.0 지원 / HDCP 2.2 지원 / 소비전력: 300W / 에너지효율: 5등급 / 두께: 6.8cm / 30.7kg / 중소기업 / 무상AS: 패널 2년');
+Insert into PROD (PROD_ID,LPROD_GU,PROD_NAME,PROD_TOTALSTOCK,PROD_SALE,PRDO_IMG,PROD_INFO) values ('P105000009','P105','삼성전자 갤럭시S21 울트라 5G 512GB, 공기계 ',100,1597810,'D:\\TEMP\\P105000009.JPG','스마트폰 / 안드로이드11 /화면정보 17.20cm(6.8인치) / D-AMOLED / 3200x1440 / 515ppi / 120Hz / 20:9 /시스템 엑시노스2100 / 5nm / 램:16GB / 내장:512GB / MicroSD 미지원 /네트워크 5G NR / LTE-A / Wi-Fi6e / 블루투스v5.2 / 나노유심 /카메라 후면:1억800만화소+1,200만화소+1,000만화소+1,000만화소 / 전면:4,000만화소 / 동영상:8K@24fps / 전자식손떨림보정(EIS)/광학식손떨림보정(OIS) /사운드 스피커:스테레오(2개) /보안/기능 지문인식(온스크린) / 빅스비 / 삼성페이 / IP68 / GPS / NFC / OTG / AOD /배터리 USB타입C / 5,000mAh / 충전지원: 최대25W / Qi무선충전: 최대15W /규격/모델명 가로:75.6mm / 세로:165.1mm / 두께:8.9mm / 무게:227g / SM-G998N');
+Insert into PROD (PROD_ID,LPROD_GU,PROD_NAME,PROD_TOTALSTOCK,PROD_SALE,PRDO_IMG,PROD_INFO) values ('P106000002','P106','SONY 알파 A7C ',100,1873600,'D:\\TEMP\\P106000002.JPG','미러리스 / 2420만화소 / CMOS(이면조사) / 풀프레임(1:1) / Bionz X /[디스플레이] 7.62cm(3인치) / 회전형 / 셀프촬영 / 터치스크린 / 전자식뷰파인더 /[촬영] 최고ISO51200 / 셔터:1/4000초 / 초당10매 / 하이브리드AF / 초점영역: 693+425개 / Eye AF / 동물 Eye AF / 동영상 Eye AF /[동영상] 4K UHD @ 30프레임 / 시간제한없음 /[규격] 부피: 526cc / 무게: 509g / NP-FZ100(2280mAh) /[연결] HDMI출력 / USB충전 / USB C타입 / 마이크단자 / 이어폰단자 / 메모리: SDXC, UHS-II호환 /[기능] 플래시없음 / WiFi / 리모컨어플 / NFC / 블루투스 / 웹캠모드 / 방진,방적 / 먼지제거 / 5축 손떨림보정 / 안티플리커 / RAW지원 / HDR촬영 / 무음촬영 / AF트래킹 / 얼굴인식 / 핫슈지원 / HLG / S-log3 / 터치셔터');
+Insert into PROD (PROD_ID,LPROD_GU,PROD_NAME,PROD_TOTALSTOCK,PROD_SALE,PRDO_IMG,PROD_INFO) values ('P107000001','P107','삼성전자 갤럭시 버즈 프로 ',100,212900,'D:\\TEMP\\P107000001.JPG','이어폰 / 무선 / 코드리스 / 커널형 / 2개 / 블루투스 v5.0 / SBC / AAC / HFP / AVRCP / A2DP / 액티브노이즈캔슬링 / 주변소음듣기 / 재생시간: 5시간(NC ON), 8시간(NC OFF) / 충전단자: USB타입C, 무선충전 / Low-Latency모드 / 오토페어링 / 스마트센서 / 핸즈프리통화 / 퀵충전 / 터치버튼 / 재생/멈춤조절 / IPX7방수 / 무게:6.3g / 2-Way / 3D오디오 / 주변음듣기3단계조절 / 음성감지 볼륨조절 / *iOS는 버즈 프로 전용어플 미지원');
+Insert into PROD (PROD_ID,LPROD_GU,PROD_NAME,PROD_TOTALSTOCK,PROD_SALE,PRDO_IMG,PROD_INFO) values ('P107000004','P107','SKY Fit Blooming IM-S200 ',87,19090,'D:\\TEMP\\P107000004.JPG','이어폰 / 무선 / 코드리스 / 커널형 / 블루투스 v5.0 / SBC / 40mAh / 재생시간: 5시간 / 충전단자: USB타입C / 오토페어링 / 핸즈프리통화 / 재생/멈춤조절 / 볼륨조절 / 배터리잔량표시 / IPX5방수 / 무게:3.5g');
+Insert into PROD (PROD_ID,LPROD_GU,PROD_NAME,PROD_TOTALSTOCK,PROD_SALE,PRDO_IMG,PROD_INFO) values ('P103000010','P103','한성컴퓨터 올데이롱 TFX5470H ',100,959000,'D:\\TEMP\\P103000010.JPG','39.62cm(15.6인치) / AMD / 라이젠7-3세대 / 르누아르 / 4800H (2.9GHz) / 옥타코어 / 운영체제(OS): 미포함(프리도스) / 1920x1080(FHD) / NTSC: 72% / sRGB: 100% / 300nit / IPS타입 / 광시야각 / 눈부심방지 / 슬림형 베젤 / DDR4 / 16GB / M.2(NVMe) / 500GB / 내장그래픽 / Radeon Graphics / 기가비트 유선랜 / 802.11ax(Wi-Fi 6) / HDMI / 웹캠(HD) / USB Type-C / USB 3.0 / USB 2.0 / MicroSD카드 / 키보드 라이트 / USB-PD / ㅗ형 방향키 / 배터리: 91.24Wh / 충전단자: DC / 두께: 16.8mm / 무게: 1.5kg / 일반유통상품 / 용도: 사무/인강용 / 색상: 블랙관련기사');
+Insert into PROD (PROD_ID,LPROD_GU,PROD_NAME,PROD_TOTALSTOCK,PROD_SALE,PRDO_IMG,PROD_INFO) values ('P104000002','P104','삼성전자 갤럭시탭S7 11 Wi-Fi 128GB ',100,756000,'D:\\TEMP\\P104000002.JPG','태블릿PC / 2in1 / 안드로이드 10 /화면정보 27.94㎝(11인치) / TFT-LCD / 2560x1600 / 276ppi / 16:10 / 120Hz /프로세서 스냅드래곤865+ / 옥타코어 / 3.09GHz+2.4GHz+1.8GHz / Adreno650 /메모리 램:6GB / 내장:128GB / UFS3.0(내장) / microSD:최대1TB /네트워크 Wi-Fi전용 / Wi-Fi6 / 블루투스v5.0 / Wi-Fi 듀얼밴드 / 핫스팟 /카메라 후면:1,300만화소+500만화소 / 전면:800만화소 / 동영상:4k@30fps /스피커/단자 스피커: 4개 / USB타입C /액세서리 전용펜 포함 / 전용키보드 별매 /배터리 8,000mAh / 사용시간:최대15시간 /규격 가로: 253.8mm / 세로: 165.3mm / 두께: 6.3mm / 498g');
+Insert into PROD (PROD_ID,LPROD_GU,PROD_NAME,PROD_TOTALSTOCK,PROD_SALE,PRDO_IMG,PROD_INFO) values ('P104000004','P104','삼성전자 갤럭시탭S7 플러스 12.4 Wi-Fi 256GB ',100,1053000,'D:\\TEMP\\P104000004.JPG','태블릿PC / 2in1 / 안드로이드 10 /화면정보 31.49cm(12.4인치) / SUPER AMOLED / 2800x1752 / 266ppi / 16:10 / 120Hz /프로세서 스냅드래곤865+ / 옥타코어 / 3.09GHz+2.4GHz+1.8GHz / Adreno650 /메모리 램:8GB / 내장:256GB / UFS3.0(내장) / microSD:최대1TB /네트워크 Wi-Fi전용 / Wi-Fi6 / 블루투스v5.0 / Wi-Fi 듀얼밴드 / 핫스팟 /카메라 후면:1,300만화소+500만화소 / 전면:800만화소 / 동영상:4k@30fps /스피커/단자 스피커: 4개 / USB타입C /액세서리 전용펜 포함 / 전용키보드 별매 /배터리 10,090mAh / 사용시간:최대8시간 /규격 가로: 285mm / 세로: 185mm / 두께: 5.7mm / 575g');
+Insert into PROD (PROD_ID,LPROD_GU,PROD_NAME,PROD_TOTALSTOCK,PROD_SALE,PRDO_IMG,PROD_INFO) values ('P104000005','P104','삼성전자 갤럭시탭A 8.0 2019 Wi-Fi 32GB ',100,140850,'D:\\TEMP\\P104000005.JPG','태블릿PC / 안드로이드 9.0 파이 /화면정보 20.32cm(8.인치) / TFT-LCD / 1280x800 / 189ppi / 16:10 / 60Hz /프로세서 스냅드래곤429 / 쿼드코어 / 2.0GHz / Adreno504 /메모리 램:2GB / 내장:32GB / microSD:최대512GB /네트워크 Wi-Fi전용 / Wi-Fi4 / 블루투스v4.2 / Wi-Fi 듀얼밴드 /카메라 후면:800만화소 / 전면:200만화소 / 동영상:1080p(FHD),30fps /스피커/단자 스피커: 2개 / 마이크로5핀 / 3.5mm단자 /액세서리 전용펜 미지원 / 전용키보드 미지원 /배터리 5,100mAh /규격 가로: 124.4mm / 세로: 210mm / 두께: 8mm / 345g');
+Insert into PROD (PROD_ID,LPROD_GU,PROD_NAME,PROD_TOTALSTOCK,PROD_SALE,PRDO_IMG,PROD_INFO) values ('P104000009','P104','삼성전자 갤럭시탭A7 10.4 2020 Wi-Fi 32GB ',100,242870,'D:\\TEMP\\P104000009.JPG','태블릿PC / 안드로이드 10 /화면정보 26.42cm(10.4인치) / TFT-LCD / 2000x1200 / 224ppi / 5:3 / 60Hz /프로세서 스냅드래곤662 / 옥타코어 / 2.0GHz+1.8GHz / Adreno610 /메모리 램:3GB / 내장:32GB / microSD:최대1TB /네트워크 Wi-Fi전용 / Wi-Fi5 / 블루투스v5.0 / Wi-Fi 듀얼밴드 / 핫스팟 /카메라 후면:800만화소 / 전면:500만화소 / 동영상:1080p(FHD),30fps /스피커/단자 스피커: 4개 / USB타입C / 3.5mm단자 /액세서리 전용펜 미지원 / 전용키보드 미지원 /배터리 7,040mAh /규격 가로: 247.6mm / 세로: 157.4mm / 두께: 7.0mm / 476g');
+Insert into PROD (PROD_ID,LPROD_GU,PROD_NAME,PROD_TOTALSTOCK,PROD_SALE,PRDO_IMG,PROD_INFO) values ('P104000010','P104','삼성전자 갤럭시탭S6 라이트 10.4 LTE 64GB ',100,470250,'D:\\TEMP\\P104000010.JPG','태블릿PC / 안드로이드 10 /화면정보 26.42cm(10.4인치) / TFT-LCD / 2000x1200 / 224ppi / 5:3 / 60Hz /프로세서 엑시노스9 9611 / 옥타코어 / 2.3GHz+1.7GHz / Mali G72 /메모리 램:4GB / 내장:64GB / UFS2.1(내장) / microSD:최대1TB /네트워크 LTE+Wi-Fi / Wi-Fi5 / 블루투스v5.0 / Wi-Fi 듀얼밴드 / 핫스팟 /카메라 후면:800만화소 / 전면:500만화소 / 동영상:1080p(FHD),30fps /스피커/단자 스피커: 2개 / USB타입C / 3.5mm단자 /액세서리 전용펜 포함 / 전용키보드 미지원 /배터리 7,040mAh / 사용시간:최대12시간 /규격 가로: 154.3mm / 세로: 244.5mm / 두께: 7.0mm / 467g');
+Insert into PROD (PROD_ID,LPROD_GU,PROD_NAME,PROD_TOTALSTOCK,PROD_SALE,PRDO_IMG,PROD_INFO) values ('P105000003','P105','삼성전자 갤럭시A31 2020 64GB, 공기계 ',100,331550,'D:\\TEMP\\P105000003.JPG','스마트폰 / 안드로이드10 /화면정보 16.25cm(6.4인치) / S-AMOLED / 2400x1080 / 411ppi / 60Hz / 20:9 /시스템 미디어텍MT6768 / 램:4GB / 내장:64GB / microSD:최대512GB /네트워크 LTE-A Cat.6 / Wi-Fi5 / 블루투스v5.0 / 나노유심 /카메라 후면:4,800만화소+800만화소+500만화소+500만화소 / 전면:2,000만화소 / 동영상:1080p(FHD),30fps /사운드 3.5mm / 스피커:모노(1개) /보안/기능 지문인식(온스크린) / 삼성페이 / GPS / NFC / OTG /배터리 USB타입C / 5,000mAh / 충전지원: 최대15W /규격/모델명 가로:73.1mm / 세로:159.3mm / 두께:8.6mm / 무게:186g / SM-A315');
+Insert into PROD (PROD_ID,LPROD_GU,PROD_NAME,PROD_TOTALSTOCK,PROD_SALE,PRDO_IMG,PROD_INFO) values ('P103000002','P103','레노버 아이디어패드 Slim3-15IIL 5D ',100,679400,'D:\\TEMP\\P103000002.JPG','39.6cm(15.6인치) / 인텔 / 코어i5-10세대 / 아이스레이크 / i5-1035G4 (1.1GHz) / 쿼드코어 / 운영체제(OS): 미포함(프리도스) / 1920x1080(FHD) / IPS / 광시야각 / 눈부심방지 / 슬림형 베젤 / DDR4 / 4GB / M.2(NVMe) / 256GB / 내장그래픽 / Iris Plus / 802.11ac(Wi-Fi 5) / HDMI / 웹캠 / USB 3.1 / USB 2.0 / SD카드 / 웹캠OFF 지원 / ㅡ형 방향키 / 숫자 키패드(4열) / 충전단자: DC / 두께: 19.9mm / 무게: 1.7kg / 일반유통상품 / 용도: 사무/인강용 / 색상: 그레이, 블루');
+Insert into PROD (PROD_ID,LPROD_GU,PROD_NAME,PROD_TOTALSTOCK,PROD_SALE,PRDO_IMG,PROD_INFO) values ('P103000004','P103','레노버 게이밍 3 15ARH R5 ZEN ',100,816560,'D:\\TEMP\\P103000004.JPG','39.6cm(15.6인치) / AMD / 라이젠5-3세대 / 르누아르 / 4600H (3.0GHz) / 헥사코어 / 운영체제(OS): 미포함(프리도스) / 1920x1080(FHD) / 120Hz / IPS / 광시야각 / 눈부심방지 / 슬림형 베젤 / DDR4 / 8GB / M.2(NVMe) / 256GB / 외장그래픽 / GTX1650 / VRAM:4GB / 기가비트 유선랜 / 802.11ac(Wi-Fi 5) / HDMI 2.0 / 웹캠(HD) / USB Type-C / USB 3.0 / 키보드 라이트 / 웹캠OFF 지원 / ㅗ형 방향키 / 숫자 키패드(4열) / 배터리: 45Wh / 충전단자: 전용포트 / 두께: 24.9mm / 무게: 2.2kg / 일반유통상품 / 용도: 게임용, 그래픽작업용 / 색상: 블루');
+Insert into PROD (PROD_ID,LPROD_GU,PROD_NAME,PROD_TOTALSTOCK,PROD_SALE,PRDO_IMG,PROD_INFO) values ('P103000005','P103','LG전자 2021 그램16 16ZD90P-GX50K',96,1699000,'D:\\TEMP\\P103000005.JPG','40.6cm(16인치) / 인텔 / 코어i5-11세대 / 타이거레이크 / i5-1135G7 (2.4GHz) / 쿼드코어 / 운영체제(OS): 미포함(프리도스) / 2560x1600(WQXGA) / DCI-P3: 99% / IPS / 광시야각 / 슬림형 베젤 / LPDDR4x(온보드) / 8GB / M.2(NVMe) / 256GB / 내장그래픽 / Iris Xe / 802.11ax(Wi-Fi 6) / HDMI / 웹캠(HD) / 썬더볼트4: 2개 / USB 4.0 / USB 3.1 / UFS / MicroSD카드 / 키보드 라이트 / MIL-STD / 지문인식(전원버튼) / USB-PD / ㅗ형 방향키 / 숫자 키패드(3열) / 배터리: 80Wh / 충전단자: 타입C / 두께: 16.8mm / 무게: 1.19kg / 일반유통상품 / 용도: 사무/인강용, 휴대용 / 색상: 화이트');
+Insert into PROD (PROD_ID,LPROD_GU,PROD_NAME,PROD_TOTALSTOCK,PROD_SALE,PRDO_IMG,PROD_INFO) values ('P103000007','P103','레노버 아이디어패드 L3-15IML 81Y3003CKR ',100,561250,'D:\\TEMP\\P103000007.JPG','39.6cm(15.6인치) / 인텔 / 코어i5-10세대 / 코멧레이크 / i5-10210U (1.6GHz) / 쿼드코어 / 운영체제(OS): 미포함(프리도스) / 1920x1080(FHD) / 250nit / IPS / 광시야각 / 눈부심방지 / 슬림형 베젤 / DDR4 / 4GB / M.2(NVMe) / 256GB / 내장그래픽 / UHD Graphics / 유선랜 / 802.11ac(Wi-Fi 5) / HDMI / 웹캠 / USB Type-C / USB 3.0 / 웹캠OFF 지원 / 고속충전 / ㅡ형 방향키 / 숫자 키패드(4열) / 배터리: 36Wh / 충전단자: DC / 두께: 22.9mm / 무게: 2.2kg / 일반유통상품 / 용도: 사무/인강용 / 색상: 화이트');
+Insert into PROD (PROD_ID,LPROD_GU,PROD_NAME,PROD_TOTALSTOCK,PROD_SALE,PRDO_IMG,PROD_INFO) values ('P103000008','P103','ASUS 비보북15 D513IA-BQ380 ',100,599000,'D:\\TEMP\\P103000008.JPG','39.62cm(15.6인치) / AMD / 라이젠5-3세대 / 르누아르 / 4500U (2.3GHz) / 헥사코어 / 운영체제(OS): 미포함(프리도스) / 1920x1080(FHD) / 광시야각 / 슬림형 베젤 / DDR4 / 8GB / M.2(NVMe) / 256GB / 내장그래픽 / Radeon Graphics / 802.11ax(Wi-Fi 6) / HDMI / 웹캠(HD) / USB Type-C / USB 3.0 / USB 2.0 / MicroSD카드 / 지문 인식 / ㅗ형 방향키 / 숫자 키패드(3열) / 배터리: 42Wh / 충전단자: DC / 두께: 19.5mm / 무게: 1.8kg / 일반유통상품 / 용도: 사무/인강용 / 색상: 화이트');
+Insert into PROD (PROD_ID,LPROD_GU,PROD_NAME,PROD_TOTALSTOCK,PROD_SALE,PRDO_IMG,PROD_INFO) values ('P103000009','P103','HP 15s-fq1008tu ',100,786000,'D:\\TEMP\\P103000009.JPG','39.62cm(15.6인치) / 인텔 / 코어i5-10세대 / 아이스레이크 / i5-1035G1 (1.0GHz) / 쿼드코어 / 운영체제(OS): 윈도우10 / 1920x1080(FHD) / IPS / 광시야각 / 눈부심방지 / 슬림형 베젤 / DDR4 / 4GB / M.2(NVMe) / 256GB / 내장그래픽 / UHD Graphics / 802.11ac(Wi-Fi 5) / HDMI / 웹캠 / USB Type-C / USB 3.0 / SD카드 / 고속충전 / ㅡ형 방향키 / 숫자 키패드(4열) / 배터리: 41Wh / 충전단자: DC / 두께: 17.9mm / 무게: 1.69kg / 일반유통상품 / 용도: 사무/인강용 / 색상: 화이트');
+Insert into PROD (PROD_ID,LPROD_GU,PROD_NAME,PROD_TOTALSTOCK,PROD_SALE,PRDO_IMG,PROD_INFO) values ('P102000007','P102','삼성전자 데스크탑5 DM500TCZ-AD5A-LD ',100,900000,'D:\\TEMP\\P102000007.JPG','인텔 / 코어i5-10세대 / 코멧레이크S / i5-10400 (2.9GHz) / (인텔) H470 / DDR4 / 8GB / HDD:1TB / M.2 / 256GB / DVD 레코더 / UHD 그래픽스 630 / 1Gbps 유선 / 802.11ax(Wi-Fi 6) 무선 / 블루투스 / HDMI / DVI / D-SUB / USB 3.0 / USB Type-C / 450W / 윈도우10 프로 / 미들타워 / 8.82kg / 용도: 사무/인강용 / 구성변경상품');
+Insert into PROD (PROD_ID,LPROD_GU,PROD_NAME,PROD_TOTALSTOCK,PROD_SALE,PRDO_IMG,PROD_INFO) values ('P102000008','P102','삼성전자 데스크탑4 DM400TCA-YAI5-G660S5 ',100,1460470,'D:\\TEMP\\P102000008.JPG','인텔 / 코어i5-10세대 / 코멧레이크S / i5-10400 (2.9GHz) / (인텔) H470 / DDR4 / 16GB / HDD:1TB / M.2 / 512GB / DVD 레코더 / 지포스 GTX 1660 SUPER / 6GB / 1Gbps 유선 / HDMI / DP포트 / USB 3.0 / 윈도우10 / 미들타워 / 8.82kg / 용도: 게임용 / 구성변경상품');
+Insert into PROD (PROD_ID,LPROD_GU,PROD_NAME,PROD_TOTALSTOCK,PROD_SALE,PRDO_IMG,PROD_INFO) values ('P102000009','P102','MSI MAG 인피니트 10SE-R37 ',100,1790000,'D:\\TEMP\\P102000009.JPG','인텔 / 코어i7-10세대 / 코멧레이크S / i7-10700 (2.9GHz) / (인텔) H410 / DDR4 / 16GB / M.2 / 512GB / 지포스 RTX 3070 / 8GB / 1Gbps 유선 / HDMI / DP포트 / USB 3.1 / USB 3.0 / USB Type-C / 550W / 운영체제 미포함 / 미들타워 / 용도: 게임용');
+Insert into PROD (PROD_ID,LPROD_GU,PROD_NAME,PROD_TOTALSTOCK,PROD_SALE,PRDO_IMG,PROD_INFO) values ('P102000001','P102','삼성전자 데스크탑 Slim DB400S7B-Z38 ',99,428040,'D:\\TEMP\\P102000001.JPG','인텔 / 코어i3-6세대 / 스카이레이크 / i3-6320 (3.9GHz) / (인텔) H110 / DDR4 / 8GB / SSD / 256GB / DVD 레코더 / HD 그래픽스 530 / 1Gbps 유선 / HDMI / DVI / D-SUB / USB 3.0 / 270W / 윈도우10 / 슬림 / 7.53kg / 용도: 사무/인강용');
+Insert into PROD (PROD_ID,LPROD_GU,PROD_NAME,PROD_TOTALSTOCK,PROD_SALE,PRDO_IMG,PROD_INFO) values ('P102000002','P102','DELL 인스피론 3881 DNDT3881-UB04KR-WH ',100,1327620,'D:\\TEMP\\P102000002.JPG','인텔 / 코어i7-10세대 / 코멧레이크S / i7-10700F (2.9GHz) / (인텔) H470 / DDR4 / 16GB / M.2 / 512GB / 지포스 GTX 1660 SUPER / 6GB / 1Gbps 유선 / 802.11ac(Wi-Fi 5) 무선 / 블루투스 / HDMI / DP포트 / USB 3.1 / USB 3.0 / USB Type-C / 360W / 윈도우10 / 미들타워 / 5.24kg / 용도: 게임용 / 구성변경상품');
+Insert into PROD (PROD_ID,LPROD_GU,PROD_NAME,PROD_TOTALSTOCK,PROD_SALE,PRDO_IMG,PROD_INFO) values ('P102000003','P102','삼성전자 올인원PC DM530ADA-L58AW ',100,1199000,'D:\\TEMP\\P102000003.JPG','인텔 / 코어i5-11세대 / 타이거레이크 / i5-1135G7 (4.2GHz) / DDR4 / 8GB / M.2 / 256GB / Iris Xe 그래픽스 / 1Gbps 유선 / 802.11ac(Wi-Fi 5) 무선 / 블루투스 / HDMI / USB 3.0 / 웹캠 / 마이크 내장 / 외장 어댑터 / 윈도우10 / 일체형 / 7.11kg / 화면크기: 61cm(24인치) / 1920x1080 / LED 백라이트 / 눈부심방지 / 틸트');
+Insert into PROD (PROD_ID,LPROD_GU,PROD_NAME,PROD_TOTALSTOCK,PROD_SALE,PRDO_IMG,PROD_INFO) values ('P102000004','P102','ASUS MiniPC PN40 J4025 White Win10 Pro ',99,364000,'D:\\TEMP\\P102000004.JPG','인텔 / 셀러론 / 제미니레이크-R / J4025 (2.0GHz) / DDR4 / 4GB / eMMC / 64GB / UHD 그래픽스 600 / 1Gbps 유선 / 802.11ac(Wi-Fi 5) 무선 / 블루투스 / HDMI / mini DP / D-SUB / USB Type-C / 외장 어댑터 / 윈도우10 프로 / 미니PC / 용도: 사무/인강용');
+Insert into PROD (PROD_ID,LPROD_GU,PROD_NAME,PROD_TOTALSTOCK,PROD_SALE,PRDO_IMG,PROD_INFO) values ('P102000005','P102','MSI MAG 인피니트 10SE-1069KR ',100,999000,'D:\\TEMP\\P102000005.JPG','인텔 / 코어i5-10세대 / 코멧레이크S / i5-10400 (2.9GHz) / (인텔) H410 / DDR4 / 16GB / M.2 / 256GB / 지포스 GTX 1660 SUPER / 6GB / 1Gbps 유선 / HDMI / DP포트 / USB 3.1 / USB 3.0 / USB Type-C / 550W / 운영체제 미포함 / 미들타워 / 용도: 게임용');
+Insert into PROD (PROD_ID,LPROD_GU,PROD_NAME,PROD_TOTALSTOCK,PROD_SALE,PRDO_IMG,PROD_INFO) values ('P102000006','P102','MSI MAG 코덱스 X5 10TE-411KR ',100,3001130,'D:\\TEMP\\P102000006.JPG','인텔 / 코어i9-10세대 / 코멧레이크S / i9-10900KF (3.7GHz) / (인텔) Z490 / DDR4 / 16GB / HDD:2TB / M.2 / 1TB / 지포스 RTX 3080 / 10GB / 1Gbps 유선 / USB 3.1 / USB 3.0 / USB Type-C / 750W / 윈도우10 / 미들타워 / 용도: 게임용');
+Insert into PROD (PROD_ID,LPROD_GU,PROD_NAME,PROD_TOTALSTOCK,PROD_SALE,PRDO_IMG,PROD_INFO) values ('P101000001','P101','이스트라 AN650UHD 안드로이드 더 스마트 Ai (스탠드) ',100,599000,'D:\\TEMP\\P101000001.JPG','176cm(70인치) / 4K UHD / 서브픽셀: RGB / 명암비: 400만:1 / 밝기: 400cd / 응답속도: 6~8ms / 스캔방식: 60Hz / 크로마샘플링: 4:4:4 / HDR10 / 2.0ch스피커(24W) / 스마트TV / 안드로이드OS / 미라캐스트 / 넷플릭스 지원 / 유튜브 지원 / Wi-Fi / 유선랜 / HDMI(4개) / USB(2개) / HDMI 2.0 지원 / 소비전력: 90W / 에너지효율: 1등급 / 두께: 7.6cm / 23.7kg / 중소기업');
+Insert into PROD (PROD_ID,LPROD_GU,PROD_NAME,PROD_TOTALSTOCK,PROD_SALE,PRDO_IMG,PROD_INFO) values ('P101000002','P101','이노스 S6511KU QLED 사운드 (스탠드) ',99,703250,'D:\\TEMP\\P101000002.JPG','139cm(55인치) / 4K UHD / VA패널 / 서브픽셀: RGB / 명암비: 400만:1 / 밝기: 400cd / 응답속도: 6.5ms / 크로마샘플링: 4:4:4 / UHD업스케일링 / HDR10 / 2.0ch스피커(24W) / 스마트TV / 안드로이드OS / APP설치 / 음성인식 / 미라캐스트 / 넷플릭스 지원 / 유튜브 지원 / Wi-Fi / 유선랜 / HDMI(4개) / USB(2개) / HDMI 2.0 지원 / 소비전력: 75W / 에너지효율: 1등급 / 두께: 7.2cm / 13.9kg / 중소기업 / 무상AS: 패널 2년');
+Insert into PROD (PROD_ID,LPROD_GU,PROD_NAME,PROD_TOTALSTOCK,PROD_SALE,PRDO_IMG,PROD_INFO) values ('P101000003','P101','와사비망고 WM 650 QLED UHD 스마트TV AI 와글와글 ',88,670500,'D:\\TEMP\\P101000003.JPG','165cm(65인치) / QLED TV / 4K UHD / VA패널 / 서브픽셀: RGB / 패널비트: 10비트 / 명암비: 500만:1 / 밝기: 330cd / 응답속도: 8ms / 스캔방식: 60Hz / 크로마샘플링: 4:4:4 / HDR10 / 2.0ch스피커(20W) / 안드로이드OS / 미라캐스트 / 넷플릭스 지원 / 유튜브 지원 / Wi-Fi / 유선랜 / HDMI(4개) / USB(3개) / HDMI 2.0 지원 / HDCP 2.2 지원 / 소비전력: 125W / 에너지효율: 1등급 / 두께: 6.3cm / 18.5kg / 중소기업');
+Insert into PROD (PROD_ID,LPROD_GU,PROD_NAME,PROD_TOTALSTOCK,PROD_SALE,PRDO_IMG,PROD_INFO) values ('P101000004','P101','LG전자 75UN7850KNA ',100,1771750,'D:\\TEMP\\P101000004.JPG','189cm(75인치) / 4K UHD / IPS패널 / 스캔방식: 60Hz / 크로마샘플링: 4:4:4 / HDR10 / HLG / 2.0ch스피커(20W) / 스마트TV / 웹OS5.0 / 음성인식 / 미라캐스트 / 넷플릭스 지원 / 유튜브 지원 / 인공지능 / 스마트TV리모컨 / Wi-Fi / 유선랜 / HDMI(4개) / USB(2개) / 소비전력: 72.2W / 에너지효율: 1등급 / 두께: 8.9cm / 34.6kg / 국내정품 / 무상AS: 패널 2년');
+Insert into PROD (PROD_ID,LPROD_GU,PROD_NAME,PROD_TOTALSTOCK,PROD_SALE,PRDO_IMG,PROD_INFO) values ('P101000005','P101','지원아이앤씨 UV652 HDR 크롬캐스트',98,535840,'D:\\TEMP\\P101000005.JPG','165cm(65인치) / 4K UHD / SVA패널 / 패널비트: 10비트 / 명암비: 5천:1 / 밝기: 400cd / 응답속도: 5ms / 스캔방식: 60Hz / 크로마샘플링: 4:4:4 / HDR10 / 2.0ch스피커(20W) / 안드로이드OS / 미라캐스트 / 넷플릭스 지원 / 유튜브 지원 / Wi-Fi / 유선랜 / HDMI(4개) / USB(3개) / HDMI 2.0 지원 / 소비전력: 170W / 중소기업');
+Insert into PROD (PROD_ID,LPROD_GU,PROD_NAME,PROD_TOTALSTOCK,PROD_SALE,PRDO_IMG,PROD_INFO) values ('P101000006','P101','삼성전자 KU70UT7080F ',99,1149000,'D:\\TEMP\\P101000006.JPG','176cm(70인치) / 4K UHD / VA패널 / 스캔방식: 60Hz / 화질엔진: 크리스털 UHD / 크로마샘플링: 4:4:4 / UHD업스케일링 / HDR10 / HLG / 2.0ch스피커(20W) / 스마트TV / 타이젠OS / 미라캐스트 / 넷플릭스 지원 / 유튜브 지원 / Wi-Fi / 유선랜 / HDMI(2개) / USB(1개) / 에너지효율: 3등급 / 국내정품 / 무상AS: 패널 2년');
+Insert into PROD (PROD_ID,LPROD_GU,PROD_NAME,PROD_TOTALSTOCK,PROD_SALE,PRDO_IMG,PROD_INFO) values ('P101000007','P101','LG전자 OLED55CXFNA ',43,1667970,'D:\\TEMP\\P101000007.JPG','138cm(55인치) / OLED TV / 4K UHD / 화질엔진: 알파9 Gen3 / UHD업스케일링 / 돌비비전 / HDR10 / HLG / 2.0ch스피커(20W) / 스마트TV / 웹OS5.0 / 음성인식 / 미라캐스트 / 넷플릭스 지원 / 유튜브 지원 / 인공지능 / 스마트TV리모컨 / Wi-Fi / 유선랜 / HDMI(4개) / USB(3개) / HDMI 2.1 지원 / 소비전력: 121W / 에너지효율: 4등급 / 두께: 4.7cm / 18.9kg / 국내정품 / 무상AS: 패널 2년');
+Insert into PROD (PROD_ID,LPROD_GU,PROD_NAME,PROD_TOTALSTOCK,PROD_SALE,PRDO_IMG,PROD_INFO) values ('P101000008','P101','더함 우버 U431UHD SMART HDR 크롬캐스트 ',100,319000,'D:\\TEMP\\P101000008.JPG','108cm(43인치) / 4K UHD / 서브픽셀: RGB / 패널비트: 10비트 / 명암비: 500만:1 / 밝기: 350cd / 응답속도: 5ms / 스캔방식: 60Hz / 크로마샘플링: 4:4:4 / UHD업스케일링 / HDR10 / 2.0ch스피커(20W) / 스마트TV / 안드로이드OS / 음성인식 / 미라캐스트 / 넷플릭스 지원 / 유튜브 지원 / Wi-Fi / 유선랜 / HDMI(3개) / USB(2개) / HDMI 2.0 지원 / HDCP 2.2 지원 / 소비전력: 80.3W / 에너지효율: 1등급 / 두께: 8.2cm / 6.8kg / 중소기업 / 무상AS: 패널 2년');
+Insert into PROD (PROD_ID,LPROD_GU,PROD_NAME,PROD_TOTALSTOCK,PROD_SALE,PRDO_IMG,PROD_INFO) values ('P101000010','P101','LG전자 OLED55BXENA ',77,1288720,'D:\\TEMP\\P101000010.JPG','138cm(55인치) / OLED TV / 4K UHD / 화질엔진: 알파7 Gen3 / 크로마샘플링: 4:4:4 / UHD업스케일링 / 돌비비전 / HDR10 / HLG / 2.0ch스피커(20W) / 스마트TV / 웹OS5.0 / 미라캐스트 / 넷플릭스 지원 / 유튜브 지원 / 인공지능 / Wi-Fi / 유선랜 / HDMI(4개) / USB(2개) / HDMI 2.1 지원 / 소비전력: 121W / 에너지효율: 4등급 / 두께: 4.7cm / 18.9kg / 국내정품 / 무상AS: 패널 2년');
+Insert into PROD (PROD_ID,LPROD_GU,PROD_NAME,PROD_TOTALSTOCK,PROD_SALE,PRDO_IMG,PROD_INFO) values ('P105000004','P105','삼성전자 갤럭시S21 플러스 5G 256GB, 공기계 ',99,1078950,'D:\\TEMP\\P105000004.JPG','스마트폰 / 안드로이드11 /화면정보 17.02cm(6.7인치) / D-AMOLED / 2400x1080 / 394ppi / 120Hz / 20:9 /시스템 엑시노스2100 / 5nm / 램:8GB / 내장:256GB / MicroSD 미지원 /네트워크 5G NR / LTE-A / Wi-Fi6 / 블루투스v5.0 / 나노유심 /카메라 후면:6,400만화소+1,200만화소+1,200만화소 / 전면:1,000만화소 / 동영상:8K@24fps / 전자식손떨림보정(EIS)/광학식손떨림보정(OIS) /사운드 스피커:스테레오(2개) /보안/기능 지문인식(온스크린) / 빅스비 / 삼성페이 / IP68 / GPS / NFC / OTG / AOD /배터리 USB타입C / 4,800mAh / 충전지원: 최대25W / Qi무선충전: 최대15W /규격/모델명 가로:75.6mm / 세로:161.5mm / 두께:7.8mm / 무게:200g / SM-G996N');
+Insert into PROD (PROD_ID,LPROD_GU,PROD_NAME,PROD_TOTALSTOCK,PROD_SALE,PRDO_IMG,PROD_INFO) values ('P105000005','P105','삼성전자 갤럭시S21 울트라 5G 256GB, 공기계 ',100,1301950,'D:\\TEMP\\P105000005.JPG','스마트폰 / 안드로이드11 /화면정보 17.20cm(6.8인치) / D-AMOLED / 3200x1440 / 515ppi / 120Hz / 20:9 /시스템 엑시노스2100 / 5nm / 램:12GB / 내장:256GB / MicroSD 미지원 /네트워크 5G NR / LTE-A / Wi-Fi6e / 블루투스v5.2 / 나노유심 /카메라 후면:1억800만화소+1,200만화소+1,000만화소+1,000만화소 / 전면:4,000만화소 / 동영상:8K@24fps / 전자식손떨림보정(EIS)/광학식손떨림보정(OIS) /사운드 스피커:스테레오(2개) /보안/기능 지문인식(온스크린) / 빅스비 / 삼성페이 / IP68 / GPS / NFC / OTG / AOD /배터리 USB타입C / 5,000mAh / 충전지원: 최대25W / Qi무선충전: 최대15W /규격/모델명 가로:75.6mm / 세로:165.1mm / 두께:8.9mm / 무게:227g / SM-G998N');
+Insert into PROD (PROD_ID,LPROD_GU,PROD_NAME,PROD_TOTALSTOCK,PROD_SALE,PRDO_IMG,PROD_INFO) values ('P105000006','P105','삼성전자 갤럭시S20 FE 5G 128GB, 공기계',100,791450,'D:\\TEMP\\P105000006.JPG','스마트폰 / 안드로이드10 /화면정보 16.51cm(6.5인치) / S-AMOLED / 2400x1080 / 407ppi / 120Hz / 20:9 /시스템 스냅드래곤865 / 7nm+ / 램:6GB / 내장:128GB / microSD:최대1TB /네트워크 5G NR / LTE-A Cat.19 / Wi-Fi6 / 블루투스v5.0 / 나노유심 /카메라 후면:1,200만화소+1,200만화소+800만화소 / 전면:3,200만화소 / 동영상:4K@60fps / 전자식손떨림보정(EIS)/광학식손떨림보정(OIS) /사운드 스피커:스테레오(2개) /보안/기능 지문인식(온스크린) / 빅스비 / 삼성페이 / IP68 / GPS / NFC / OTG / AOD /배터리 USB타입C / 4,500mAh / 충전지원: 최대25W / Qi무선충전: 최대15W /규격/모델명 가로:74.5mm / 세로:159.8mm / 두께:8.4mm / 무게:190g / SM-G781N');
+Insert into PROD (PROD_ID,LPROD_GU,PROD_NAME,PROD_TOTALSTOCK,PROD_SALE,PRDO_IMG,PROD_INFO) values ('P105000007','P105','삼성전자 갤럭시노트20 울트라 5G 256GB, 공기계',100,1239450,'D:\\TEMP\\P105000007.JPG','스마트폰 / 안드로이드10 /화면정보 17.53cm(6.9인치) / D-AMOLED / 3088x1440 / 496ppi / 120Hz / 19.3:9 /시스템 스냅드래곤865+ / 7nm+ / 램:12GB / 내장:256GB / microSD:최대1TB /네트워크 5G NR / LTE-A Cat.20 / Wi-Fi6 / 블루투스v5.0 / 나노유심 /카메라 후면:1억800만화소+1,200만화소+1,200만화소 / 전면:1,000만화소 / 동영상:8K@24fps / 전자식손떨림보정(EIS)/광학식손떨림보정(OIS) /사운드 스피커:스테레오(2개) /보안/기능 지문인식(온스크린) / 빅스비 / 삼성페이 / IP68 / GPS / NFC / OTG / AOD / FM라디오 / S펜 /배터리 USB타입C / 4,500mAh / 충전지원: 최대25W / Qi무선충전 /규격/모델명 가로:77.2mm / 세로:164.8mm / 두께:8.1mm / 무게:208g / SM-N986');
+Insert into PROD (PROD_ID,LPROD_GU,PROD_NAME,PROD_TOTALSTOCK,PROD_SALE,PRDO_IMG,PROD_INFO) values ('P105000008','P105','APPLE 아이폰12 미니 5G 128GB, 공기계',100,974270,'D:\\TEMP\\P105000008.JPG','스마트폰 / iOS14 /화면정보 13.72cm(5.4인치) / OLED / 2340x1080 / 476ppi / 60Hz / 19.5:9 /시스템 애플 A14 Bionic / 5nm / 램:4GB / 내장:128GB / MicroSD 미지원 /네트워크 5G NR / LTE-A Cat.22 / Wi-Fi6 / 블루투스v5.0 / 나노유심 /카메라 후면:1,200만화소+1,200만화소 / 전면:1,200만화소 / 동영상:4K@60fps / 전자식손떨림보정(EIS)/광학식손떨림보정(OIS) /사운드 스피커:스테레오(2개) /보안/기능 FaceID / Siri / 애플페이(국내미지원) / IP68 / GPS / NFC /배터리 라이트닝8핀 / 2,227mAh / 충전지원: 최대18W / Qi무선충전: 최대7.5W /규격/모델명 가로:64.2mm / 세로:131.5mm / 두께:7.4mm / 무게:133g');
+Insert into PROD (PROD_ID,LPROD_GU,PROD_NAME,PROD_TOTALSTOCK,PROD_SALE,PRDO_IMG,PROD_INFO) values ('P105000010','P105','APPLE 아이폰12 프로 5G 128GB, 공기계 ',94,1276430,'D:\\TEMP\\P105000010.JPG','스마트폰 / iOS14 /화면정보 15.49cm(6.1인치) / OLED / 2532x1170 / 460ppi / 60Hz / 19.5:9 /시스템 애플 A14 Bionic / 5nm / 램:6GB / 내장:128GB / MicroSD 미지원 /네트워크 5G NR / LTE-A Cat.22 / Wi-Fi6 / 블루투스v5.0 / 나노유심 /카메라 후면:1,200만화소+1,200만화소+1,200만화소+TOF 3D / 전면:1,200만화소 / 동영상:4K@60fps / 전자식손떨림보정(EIS)/광학식손떨림보정(OIS) /사운드 스피커:스테레오(2개) /보안/기능 FaceID / Siri / 애플페이(국내미지원) / IP68 / GPS / NFC /배터리 라이트닝8핀 / 2,815mAh / 충전지원: 최대18W / Qi무선충전: 최대7.5W /규격/모델명 가로:71.5mm / 세로:146.7mm / 두께:7.4mm / 무게:187g');
+Insert into PROD (PROD_ID,LPROD_GU,PROD_NAME,PROD_TOTALSTOCK,PROD_SALE,PRDO_IMG,PROD_INFO) values ('P103000006','P103','LG전자 2020 울트라PC 15UD50N-GX30K ',78,698990,'D:\\TEMP\\P103000006.JPG','39.6cm(15.6인치) / 인텔 / 코어i3-10세대 / 코멧레이크 / i3-10110U (2.1GHz) / 듀얼코어 / 운영체제(OS): 미포함(프리도스) / 1920x1080(FHD) / IPS / 광시야각 / 슬림형 베젤 / DDR4 / 8GB / SSD / 128GB / 내장그래픽 / UHD Graphics / 기가비트 유선랜 / 802.11ax(Wi-Fi 6) / HDMI / 웹캠(HD) / USB 3.1 Type-C / USB 3.0 / MicroSD카드 / ㅗ형 방향키 / 숫자 키패드(3열) / 배터리: 35Wh / 충전단자: DC / 두께: 19.9mm / 무게: 1.75kg / 일반유통상품 / 용도: 사무/인강용 / 색상: 화이트');
+Insert into PROD (PROD_ID,LPROD_GU,PROD_NAME,PROD_TOTALSTOCK,PROD_SALE,PRDO_IMG,PROD_INFO) values ('P104000003','P104','APPLE 아이패드 에어 4세대 Wi-Fi 64GB ',100,719150,'D:\\TEMP\\P104000003.JPG','태블릿PC / 2in1 / iPadOS 14 /화면정보 27.68cm(10.9인치) / IPS-LCD / 2360x1640 / 264ppi / 1.43:1 / 60Hz /프로세서 A14 Bionic / 헥사코어 / 2.99GHz+1.82GHz /메모리 램:4GB / 내장:64GB / microSD미지원 /네트워크 Wi-Fi전용 / Wi-Fi6 / 블루투스v5.0 / Wi-Fi 듀얼밴드 / 핫스팟 /카메라 후면:1,200만화소 / 전면:700만화소 / 동영상:4K@24fps /스피커/단자 스피커: 2개 / USB타입C /액세서리 전용펜 별매 / 전용키보드 별매 /배터리 7,812mAh / 사용시간:최대10시간 /규격 가로: 178.5mm / 세로: 247.6mm / 두께: 6.1mm / 458g');
+Insert into PROD (PROD_ID,LPROD_GU,PROD_NAME,PROD_TOTALSTOCK,PROD_SALE,PRDO_IMG,PROD_INFO) values ('P104000006','P104','삼성전자 갤럭시탭A7 10.4 2020 Wi-Fi 64GB ',100,303000,'D:\\TEMP\\P104000006.JPG','태블릿PC / 안드로이드 10 /화면정보 26.42cm(10.4인치) / TFT-LCD / 2000x1200 / 224ppi / 5:3 / 60Hz /프로세서 스냅드래곤662 / 옥타코어 / 2.0GHz+1.8GHz / Adreno610 /메모리 램:3GB / 내장:64GB / microSD:최대1TB /네트워크 Wi-Fi전용 / Wi-Fi5 / 블루투스v5.0 / Wi-Fi 듀얼밴드 / 핫스팟 /카메라 후면:800만화소 / 전면:500만화소 / 동영상:1080p(FHD),30fps /스피커/단자 스피커: 4개 / USB타입C / 3.5mm단자 /액세서리 전용펜 미지원 / 전용키보드 미지원 /배터리 7,040mAh /규격 가로: 247.6mm / 세로: 157.4mm / 두께: 7.0mm / 476g / SM-T500');
+Insert into PROD (PROD_ID,LPROD_GU,PROD_NAME,PROD_TOTALSTOCK,PROD_SALE,PRDO_IMG,PROD_INFO) values ('P105000001','P105','삼성전자 갤럭시S21 5G 256GB',99,879900,'D:\\TEMP\\P105000001.JPG','스마트폰 / 안드로이드11 /화면정보 15.75cm(6.2인치) / D-AMOLED / 2400x1080 / 421ppi / 120Hz / 20:9 /시스템 엑시노스2100 / 5nm / 램:8GB / 내장:256GB / MicroSD 미지원 /네트워크 5G NR / LTE-A / Wi-Fi6 / 블루투스v5.0 / 나노유심 /카메라 후면:6,400만화소+1,200만화소+1,200만화소 / 전면:1,000만화소 / 동영상:8K@24fps / 전자식손떨림보정(EIS)/광학식손떨림보정(OIS) /사운드 스피커:스테레오(2개) /보안/기능 지문인식(온스크린) / 빅스비 / 삼성페이 / IP68 / GPS / NFC / OTG / AOD /배터리 USB타입C / 4,000mAh / 충전지원: 최대25W / Qi무선충전: 최대15W /규격/모델명 가로:71.2mm / 세로:151.7mm / 두께:7.9mm / 무게:169g / SM-G991N');
+Insert into PROD (PROD_ID,LPROD_GU,PROD_NAME,PROD_TOTALSTOCK,PROD_SALE,PRDO_IMG,PROD_INFO) values ('P105000002','P105','삼성전자 갤럭시A51 5G 2020 128GB, 공기계',100,473000,'D:\\TEMP\\P105000002.JPG','스마트폰 / 안드로이드10 /화면정보 16.51cm(6.5인치) / S-AMOLED / 2400x1080 / 405ppi / 60Hz / 20:9 /시스템 엑시노스980 / 8nm / 램:6GB / 내장:128GB / microSD:최대1TB /네트워크 5G NR / LTE-A Cat.16 / Wi-Fi5 / 블루투스v5.0 / 나노유심 /카메라 후면:4,800만화소+1,200만화소+500만화소+500만화소 / 전면:3,200만화소 / 동영상:4k@30fps / 전자식손떨림보정(EIS) /사운드 3.5mm / 스피커:모노(1개) /보안/기능 지문인식(온스크린) / 삼성페이 / GPS / NFC / OTG / FM라디오 /배터리 USB타입C / 4,500mAh / 충전지원: 최대15W /규격/모델명 가로:73.6mm / 세로:158.9mm / 두께:8.7mm / 무게:187g / SM-A516');
+Insert into PROD (PROD_ID,LPROD_GU,PROD_NAME,PROD_TOTALSTOCK,PROD_SALE,PRDO_IMG,PROD_INFO) values ('P106000001','P106','SONY 알파 A7 III ',100,1908730,'D:\\TEMP\\P106000001.JPG','미러리스 / 2420만화소 / CMOS(이면조사) / 풀프레임(1:1) / Bionz X /[디스플레이] 7.62cm(3인치) / 틸트형 / 터치스크린 / 전자식뷰파인더 /[촬영] 최고ISO51200 / 셔터:1/8000초 / 초당10매 / 하이브리드AF / 초점영역: 693+425개 / Eye AF / 동물 Eye AF /[동영상] 4K UHD @ 30프레임 / 30분촬영제한 /[규격] 부피: 894cc / 무게: 650g / NP-FZ100(2280mAh) /[연결] HDMI출력 / USB충전 / USB3.0 / USB C타입 / 마이크단자 / 이어폰단자 / 메모리: SDXC, 메모리스틱듀오, UHS-II호환 /[기능] 플래시없음 / WiFi / 리모컨어플 / NFC / GPS태그 / 블루투스 / 웹캠모드 / 방진,방적 / 듀얼슬롯 / 먼지제거 / 5축 손떨림보정 / 안티플리커 / RAW지원 / HDR촬영 / 무음촬영 / 전자수평계 / AF트래킹 / 얼굴인식 / 핫슈지원 / HLG / S-Log3배터리NP-FZ100');
+Insert into PROD (PROD_ID,LPROD_GU,PROD_NAME,PROD_TOTALSTOCK,PROD_SALE,PRDO_IMG,PROD_INFO) values ('P106000003','P106','SONY 알파 A6400',100,914320,'D:\\TEMP\\P106000003.JPG','미러리스 / 2420만화소 / CMOS / APS-C(1:1.5크롭) / Bionz X /[디스플레이] 7.62cm(3인치) / 틸트형 / 셀프촬영 / 터치스크린 / 전자식뷰파인더 /[촬영] 최고ISO32000 / 셔터:1/4000초 / 초당11매 / 하이브리드AF / 초점영역: 425개 / Eye AF / 동물 Eye AF /[동영상] 4K UHD @ 30프레임 / 시간제한없음 /[규격] 부피: 480cc / 무게: 403g / NP-FW50(1020mAh) /[연결] HDMI출력 / USB충전 / 마이크단자 / 메모리: SDXC, 메모리스틱듀오 /[기능] 팝업플래시 / WiFi / 리모컨어플 / NFC / GPS태그 / 블루투스 / 웹캠모드 / 방진,방적 / 먼지제거 / RAW지원 / HDR촬영 / 무음촬영 / 핸드야경촬영 / 다중노출 / 전자수평계 / AF트래킹 / 얼굴인식 / 스마일셔터 / 핫슈지원 / HLG / S-Log3');
+Insert into PROD (PROD_ID,LPROD_GU,PROD_NAME,PROD_TOTALSTOCK,PROD_SALE,PRDO_IMG,PROD_INFO) values ('P106000004','P106','후지필름 GFX 100S',94,4944020,'D:\\TEMP\\P106000004.JPG','디지털중형 / 1억200만화소 / CMOS(이면조사) / 중형(43.8mmX32.9mm) / X Processor 4 / 8.12cm(3.2인치) / 틸트형 / 터치스크린 / 전자식뷰파인더 /[촬영] 최고ISO12800 / 셔터:1/4000초 / 초당5매 / 하이브리드AF / 초점영역: 425 / Eye AF /[동영상] 4K UHD @ 30프레임 /[규격] 부피: 1362cc / 무게: 900g / NP-W235(2200mAh) /[연결] HDMI출력 / USB충전 / USB C타입 / 마이크단자 / 이어폰단자 / 메모리: SDXC, UHS-II호환 /[기능] 플래시없음 / WiFi / 리모컨어플 / 블루투스 / 방진,방적 / 듀얼슬롯 / 먼지제거 / 5축 손떨림보정 / RAW지원 / 다중노출 / AF트래킹 / 얼굴인식 / 핫슈지원 / 후지G마운트 / F-Log / 서브 LCD 모니터');
+Insert into PROD (PROD_ID,LPROD_GU,PROD_NAME,PROD_TOTALSTOCK,PROD_SALE,PRDO_IMG,PROD_INFO) values ('P106000005','P106','SONY 알파 A7R IV ',90,3458280,'D:\\TEMP\\P106000005.JPG','미러리스 / 6100만화소 / CMOS(이면조사) / 풀프레임(1:1) / 로우패스필터제거 / Bionz X /[디스플레이] 7.62cm(3인치) / 틸트형 / 터치스크린 / 전자식뷰파인더 /[촬영] 최고ISO32000 / 셔터:1/8000초 / 초당10매 / 하이브리드AF / 초점영역: 567+425 / Eye AF / 동물 Eye AF / 동영상 Eye AF /[동영상] 4K UHD @ 30프레임 / 시간제한없음 /[규격] 부피: 963cc / 무게: 665g / NP-FZ100(2280mAh) /[연결] HDMI출력 / USB충전 / USB3.0 / USB C타입 / 마이크단자 / 이어폰단자 / 메모리: SDXC, UHS-II호환 /[기능] 플래시없음 / WiFi / 리모컨어플 / NFC / GPS태그 / 블루투스 / 웹캠모드 / 방진,방적 / 듀얼슬롯 / 먼지제거 / 5축 손떨림보정 / 안티플리커 / RAW지원 / HDR촬영 / 무음촬영 / 전자수평계 / AF트래킹 / 얼굴인식 / 핫슈지원 / HLG / S-Log3 / 픽셀시프트 멀티 촬영배터리NP-FZ100');
+Insert into PROD (PROD_ID,LPROD_GU,PROD_NAME,PROD_TOTALSTOCK,PROD_SALE,PRDO_IMG,PROD_INFO) values ('P106000006','P106','SONY 알파 A7S III ',95,4697770,'D:\\TEMP\\P106000006.JPG','미러리스 / 1210만화소 / CMOS(이면조사) / 풀프레임(1:1) / Bionz XR /[디스플레이] 7.62cm(3인치) / 회전형 / 셀프촬영 / 터치스크린 / 전자식뷰파인더 /[촬영] 최고ISO102400 / 셔터:1/8000초 / 초당10매 / 하이브리드AF / 초점영역: 759+425개 / Eye AF / 동물 Eye AF /[동영상] 4K UHD,120프레임 / 시간제한없음 /[규격] 부피: 1009cc / 무게: 699g / NP-FZ100(2280mAh) /[연결] HDMI출력 / USB충전 / USB C타입 / 마이크단자 / 이어폰단자 / 메모리: SDXC, UHS-II호환, CFexpress 타입A /[기능] 플래시없음 / WiFi / 리모컨어플 / 웹캠모드 / 방진,방적 / 듀얼슬롯 / 먼지제거 / 5축 손떨림보정 / 안티플리커 / RAW지원 / HDR촬영 / 무음촬영 / AF트래킹 / 얼굴인식 / 핫슈지원 / HLG / S-Log3 / ACTIVE OSS 모드배터리NP-FZ100');
+Insert into PROD (PROD_ID,LPROD_GU,PROD_NAME,PROD_TOTALSTOCK,PROD_SALE,PRDO_IMG,PROD_INFO) values ('P106000007','P106','캐논 EOS R6 ',100,2990700,'D:\\TEMP\\P106000007.JPG','미러리스 / 2010만화소 / CMOS / 풀프레임(1:1) / DIGIC X /[디스플레이] 7.62cm(3인치) / 회전형 / 셀프촬영 / 터치스크린 / 전자식뷰파인더 /[촬영] 최고ISO102400 / 셔터:1/8000초 / 초당12매 / 듀얼픽셀AF II / 초점영역: 1053개 / Eye AF / 동물 Eye AF /[동영상] 4K UHD @ 60프레임 / 30분촬영제한 /[규격] 부피: 1189cc / 무게: 680g / LP-E6NH(2130mAh) /[연결] HDMI출력 / USB C타입 / 마이크단자 / 이어폰단자 / 메모리: SDXC, UHS-II호환 /[기능] 플래시없음 / WiFi / 리모컨어플 / GPS태그 / 블루투스 / 웹캠모드 / 방진,방적 / 듀얼슬롯 / 먼지제거 / 5축 손떨림보정 / 안티플리커 / RAW지원 / HDR촬영 / 무음촬영 / AF트래킹 / 얼굴인식 / 핫슈지원 / Canon Log / 멀티 컨트롤러 / 4K 타임랩스배터리LP-E6NH');
+Insert into PROD (PROD_ID,LPROD_GU,PROD_NAME,PROD_TOTALSTOCK,PROD_SALE,PRDO_IMG,PROD_INFO) values ('P106000008','P106','니콘 D850 ',47,2689190,'D:\\TEMP\\P106000008.JPG','DSLR / 4575만화소 / CMOS(이면조사) / 풀프레임(1:1) / 로우패스필터제거 / EXPEED5 /[디스플레이] 8.12cm(3.2인치) / 틸트형 / 터치스크린 / 광학식뷰파인더 /[촬영] 최고ISO25600 / 셔터:1/8000초 / 초당7매 / 위상차AF / 초점영역: 153개 /[동영상] 4K UHD @ 30프레임 / 30분촬영제한 /[규격] 부피: 1422cc / 무게: 1005g / EN-EL15a(1900mAh) /[연결] HDMI출력 / USB3.0 / 이어폰단자 / 메모리: SDXC, XQD /[기능] 플래시없음 / WiFi / 리모컨어플 / GPS태그 / 블루투스 / 웹캠모드 / 방진,방적 / 듀얼슬롯 / 먼지제거 / RAW지원 / HDR촬영 / 다중노출 / 전자수평계 / AF트래킹 / AF미세조정 / 얼굴인식 / 핫슈지원 / 핀포인트AF / 인터벌 타이머 촬영 / 타임 랩스 동영상 / 무음모드');
+Insert into PROD (PROD_ID,LPROD_GU,PROD_NAME,PROD_TOTALSTOCK,PROD_SALE,PRDO_IMG,PROD_INFO) values ('P106000009','P106','파나소닉 루믹스 DC-S5 ',100,2385040,'D:\\TEMP\\P106000009.JPG','미러리스 / 2420만화소 / CMOS / 풀프레임(1:1) / VENUS엔진 /[디스플레이] 7.62cm(3인치) / 회전형 / 셀프촬영 / 터치스크린 / 전자식뷰파인더 /[촬영] 최고ISO51200 / 셔터:1/8000초 / 초당7매 / 컨트라스트AF / 초점영역: 225개 / Eye AF / 동물 Eye AF /[동영상] 4K UHD @ 60프레임 / 30분촬영제한 /[규격] 부피: 1054cc / 무게: 714g / DMW-BLK22(2200mAh) /[연결] HDMI출력 / USB충전 / USB C타입 / 마이크단자 / 이어폰단자 / 메모리: SDXC, UHS-II호환 /[기능] 플래시없음 / WiFi / 리모컨어플 / 블루투스 / 방진,방적 / 듀얼슬롯 / 먼지제거 / 5축 손떨림보정 / RAW지원 / HDR촬영 / 다중노출 / DFD동체추적 / AF트래킹 / 얼굴인식 / 핫슈지원 / V-Log / 듀얼 네이티브 ISO / 듀얼 IS II 지원 / 머리 AF / 라이브뷰 합성 / HLG배터리DMW-BLK22');
+Insert into PROD (PROD_ID,LPROD_GU,PROD_NAME,PROD_TOTALSTOCK,PROD_SALE,PRDO_IMG,PROD_INFO) values ('P106000010','P106','SONY ZV-1 ',100,759410,'D:\\TEMP\\P106000010.JPG','하이엔드 / 2010만화소 / CMOS(이면조사) / 1인치 / Bionz X / 광학2.7배줌 / 밝기:F1.8~2.8 / 광각:24mm / 접사:5cm /[디스플레이] 7.62cm(3인치) / 회전형 / 셀프촬영 / 터치스크린 /[촬영] 최고ISO12800 / 셔터:1/2000초 / 초당24매 / 하이브리드AF / 초점영역: 315개+425개 / Eye AF / 동물 Eye AF / 동영상 Eye AF /[동영상] 4K UHD @ 30프레임 / 시간제한없음 /[규격] 부피: 275cc / 무게: 294g / NP-BX1(1240mAh) /[연결] HDMI출력 / USB충전 / 마이크단자 / 메모리: SDXC, 메모리스틱듀오 /[기능] 플래시없음 / WiFi / 리모컨어플 / GPS태그 / 블루투스 / 웹캠모드 / 손떨림보정 / RAW지원 / HDR촬영 / 핸드야경촬영 / 다중노출 / 전자수평계 / AF트래킹 / 얼굴인식 / 스마일셔터 / 핫슈지원 / 줌레버 / HLG / S-Log3 / 동영상 소프트스킨 / 배경흐림 보케 스위치 / 세로비디오 지원 / 3캡슐 지향성 마이크 / 윈드스크린 포함');
+Insert into PROD (PROD_ID,LPROD_GU,PROD_NAME,PROD_TOTALSTOCK,PROD_SALE,PRDO_IMG,PROD_INFO) values ('P107000002','P107','APPLE 에어팟 프로 ',25,239900,'D:\\TEMP\\P107000002.JPG','이어폰 / 무선 / 코드리스 / 커널형 / 블루투스 v5.0 / AAC / 액티브노이즈캔슬링 / 주변소음듣기 / H1칩셋 / 재생시간: 4.5시간 / 충전단자: 라이트닝, 무선충전 / 오토페어링 / 스마트센서 / 핸즈프리통화 / 퀵충전 / 터치버튼 / 재생/멈춤조절 / 생활방수 / 무게:5.4g / 적응형EQ / 공간감사운드');
+Insert into PROD (PROD_ID,LPROD_GU,PROD_NAME,PROD_TOTALSTOCK,PROD_SALE,PRDO_IMG,PROD_INFO) values ('P107000003','P107','QCY T10',45,25500,'D:\\TEMP\\P107000003.JPG','이어폰 / 무선 / 스마트폰공용 / 코드리스 / 커널형 / 블루투스 v5.0 / AAC / HFP / HSP / AVRCP / A2DP / 노이즈캔슬링 마이크 / 재생시간: 3.5시간 / 충전단자: USB타입C / 오토페어링 / 핸즈프리통화 / 퀵충전 / 전용어플 / 터치버튼 / 재생/멈춤조절 / 배터리잔량표시 / IPX5방수 / 무게:3.7g');
+Insert into PROD (PROD_ID,LPROD_GU,PROD_NAME,PROD_TOTALSTOCK,PROD_SALE,PRDO_IMG,PROD_INFO) values ('P107000005','P107','삼성전자 갤럭시 버즈 라이브 SM-R180 ',86,130330,'D:\\TEMP\\P107000005.JPG','이어폰 / 무선 / 스마트폰공용 / 코드리스 / 오픈형 / 다이나믹드라이버 / 블루투스 v5.0 / SBC / AAC / HFP / AVRCP / A2DP / 액티브노이즈캔슬링 / 주변소음듣기 / 60mAh / 재생시간: 6시간(NC ON), 8시간(NC OFF) / 충전단자: USB타입C, 무선충전 / 오토페어링 / 스마트센서 / 핸즈프리통화 / 퀵충전 / 전용어플 / 터치버튼 / 볼륨조절 / 이어윙,훅 / 무게:5.6g / 버즈투게더');
+Insert into PROD (PROD_ID,LPROD_GU,PROD_NAME,PROD_TOTALSTOCK,PROD_SALE,PRDO_IMG,PROD_INFO) values ('P107000006','P107','엠지텍 아이언 V50 ',47,49900,'D:\\TEMP\\P107000006.JPG','이어폰 / 무선 / 코드리스 / 커널형 / 다이나믹드라이버 / 블루투스 v5.0 / DAC내장 / 85mAh / 재생시간: 10시간 / 충전단자: micro5핀, 무선충전 / 오토페어링 / 핸즈프리통화 / HD보이스 / 퀵충전 / 재생/멈춤조절 / 배터리잔량표시 / IPX5방수 / 무게:5.5g');
+Insert into PROD (PROD_ID,LPROD_GU,PROD_NAME,PROD_TOTALSTOCK,PROD_SALE,PRDO_IMG,PROD_INFO) values ('P107000007','P107','엠지텍 아이언 V60 ',70,59800,'D:\\TEMP\\P107000007.JPG','이어폰 / 무선 / 코드리스 / 커널형 / 32Ω / 20Hz~20kHz / 블루투스 v5.0 / DAC내장 / 85mAh / 재생시간: 10시간 / 충전단자: micro5핀, 무선충전 / 오토페어링 / 핸즈프리통화 / HD보이스 / 재생/멈춤조절 / 볼륨조절 / 배터리잔량표시 / IPX8방수 / 무게:5.2g');
+Insert into PROD (PROD_ID,LPROD_GU,PROD_NAME,PROD_TOTALSTOCK,PROD_SALE,PRDO_IMG,PROD_INFO) values ('P107000009','P107','삼성전자 갤럭시 버즈 플러스 SM-R175 ',92,109850,'D:\\TEMP\\P107000009.JPG','이어폰 / 무선 / 코드리스 / 커널형 / 블루투스 v5.0 / SBC / AAC / HFP / AVRCP / A2DP / 주변소음듣기 / 85mAh / 재생시간: 11시간 / 충전단자: USB타입C, 무선충전 / 오토페어링 / 핸즈프리통화 / 퀵충전 / 전용어플 / 터치버튼 / 재생/멈춤조절 / 무게:6.3g / 2-Way / 주변음듣기3단계조절');
+Insert into PROD (PROD_ID,LPROD_GU,PROD_NAME,PROD_TOTALSTOCK,PROD_SALE,PRDO_IMG,PROD_INFO) values ('P107000010','P107','제닉스 STORMX TITAN 인-이어 ',75,28880,'D:\\TEMP\\P107000010.JPG','이어폰 / 유선 / 스마트폰공용 / 일반형 / 커널형 / 다이나믹드라이버 / 2개 / 102dB / 20Hz~20kHz / 연결방식: 3.5mm / 핸즈프리통화 / 재생/멈춤조절 / 케이블길이: 1.2m / 프리미엄케이블 / 블루투스모듈연결가능(별도판매)');
+Insert into PROD (PROD_ID,LPROD_GU,PROD_NAME,PROD_TOTALSTOCK,PROD_SALE,PRDO_IMG,PROD_INFO) values ('P104000008','P104','삼성전자 갤럭시탭S6 라이트 10.4 Wi-Fi 128GB ',100,467780,'D:\\TEMP\\P104000008.JPG','태블릿PC / 안드로이드 10 /화면정보 26.42cm(10.4인치) / TFT-LCD / 2000x1200 / 224ppi / 5:3 / 60Hz /프로세서 엑시노스9 9611 / 옥타코어 / 2.3GHz+1.7GHz / Mali G72 /메모리 램:4GB / 내장:128GB / UFS2.1(내장) / microSD:최대1TB /네트워크 Wi-Fi전용 / Wi-Fi5 / 블루투스v5.0 / Wi-Fi 듀얼밴드 / 핫스팟 /카메라 후면:800만화소 / 전면:500만화소 / 동영상:1080p(FHD),30fps /스피커/단자 스피커: 2개 / USB타입C / 3.5mm단자 /액세서리 전용펜 포함 / 전용키보드 미지원 /배터리 7,040mAh / 사용시간:최대12시간 /규격 가로: 154.3mm / 세로: 244.5mm / 두께: 7.0mm / 465g');
+Insert into PROD (PROD_ID,LPROD_GU,PROD_NAME,PROD_TOTALSTOCK,PROD_SALE,PRDO_IMG,PROD_INFO) values ('P107000008','P107','엠지텍 아이언 V65 ',56,79000,'D:\\TEMP\\P107000008.JPG','이어폰 / 무선 / 코드리스 / 커널형 / 32Ω / 블루투스 v5.0 / 85mAh / 재생시간: 12시간 / 충전단자: USB타입C, 무선충전 / 오토페어링 / 핸즈프리통화 / 재생/멈춤조절 / 볼륨조절 / 배터리잔량(숫자) / IPX8방수 / 무게:5.2g');
+REM INSERTING into REVIEW
+SET DEFINE OFF;
+Insert into REVIEW (REVIEW_NO,MEM_ID,PROD_ID,RATING,CONTENT) values (35,'f001','P102000004',3,'무난해요');
+Insert into REVIEW (REVIEW_NO,MEM_ID,PROD_ID,RATING,CONTENT) values (22,'g001','P107000006',1,'아주 좋아요
+');
+Insert into REVIEW (REVIEW_NO,MEM_ID,PROD_ID,RATING,CONTENT) values (1,'d001','P107000007',3,'좋아
+');
+Insert into REVIEW (REVIEW_NO,MEM_ID,PROD_ID,RATING,CONTENT) values (23,'e001','P106000005',4,'쓸만');
+Insert into REVIEW (REVIEW_NO,MEM_ID,PROD_ID,RATING,CONTENT) values (24,'f001','P107000003',4,'배송 너무 느려요');
+Insert into REVIEW (REVIEW_NO,MEM_ID,PROD_ID,RATING,CONTENT) values (26,'g001','P106000005',3,'사은품 안왔는데 이거 어떻게 된건가요?');
+Insert into REVIEW (REVIEW_NO,MEM_ID,PROD_ID,RATING,CONTENT) values (27,'h001','P103000006',1,'가격이 너무 싸네요');
+Insert into REVIEW (REVIEW_NO,MEM_ID,PROD_ID,RATING,CONTENT) values (28,'a001','P103000005',5,'맹매매우좋아요!!');
+Insert into REVIEW (REVIEW_NO,MEM_ID,PROD_ID,RATING,CONTENT) values (29,'b001','P107000006',4,'무난하네
+');
+Insert into REVIEW (REVIEW_NO,MEM_ID,PROD_ID,RATING,CONTENT) values (30,'t001','P106000008',1,'좋네요좋네요좋네요좋네');
+Insert into REVIEW (REVIEW_NO,MEM_ID,PROD_ID,RATING,CONTENT) values (32,'cdw34','P107000007',2,'무난
+');
+Insert into REVIEW (REVIEW_NO,MEM_ID,PROD_ID,RATING,CONTENT) values (33,'f001','P102000004',4,'글그그럭저럭쓸만해요');
+Insert into REVIEW (REVIEW_NO,MEM_ID,PROD_ID,RATING,CONTENT) values (36,'s001','P102000001',1,'좋아요!!~!~!~!~!~!!~*^^*');
+Insert into REVIEW (REVIEW_NO,MEM_ID,PROD_ID,RATING,CONTENT) values (37,'e001','P103000005',5,'무난해요!$!@$!!!#@');
+Insert into REVIEW (REVIEW_NO,MEM_ID,PROD_ID,RATING,CONTENT) values (38,'r001','P101000006',4,'좋아요');
+Insert into REVIEW (REVIEW_NO,MEM_ID,PROD_ID,RATING,CONTENT) values (39,'t001','P103000005',4,'무난합니다');
+Insert into REVIEW (REVIEW_NO,MEM_ID,PROD_ID,RATING,CONTENT) values (40,'a001','P103000005',4,'좋아');
+REM INSERTING into SALE
+SET DEFINE OFF;
+Insert into SALE (SALE_NO,SALE_TITLE) values ('S0100002','이노스 S6511KU QLED 사운드 (스탠드) ');
+Insert into SALE (SALE_NO,SALE_TITLE) values ('S0100003','와사비망고 WM 650 QLED UHD 스마트TV AI 와글와글 ');
+Insert into SALE (SALE_NO,SALE_TITLE) values ('S0100004','LG전자 75UN7850KNA ');
+Insert into SALE (SALE_NO,SALE_TITLE) values ('S0100005','지원아이앤씨 UV652 HDR 크롬캐스트');
+Insert into SALE (SALE_NO,SALE_TITLE) values ('S0100006','삼성전자 KU70UT7080F ');
+Insert into SALE (SALE_NO,SALE_TITLE) values ('S0100007','LG전자 OLED55CXFNA ');
+Insert into SALE (SALE_NO,SALE_TITLE) values ('S0100011','삼성전자 데스크탑 Slim DB400S7B-Z38 ');
+Insert into SALE (SALE_NO,SALE_TITLE) values ('S0100029','HP 15s-fq1008tu ');
+Insert into SALE (SALE_NO,SALE_TITLE) values ('S0100048','APPLE 아이폰12 미니 5G 128GB, 공기계');
+Insert into SALE (SALE_NO,SALE_TITLE) values ('S0100062','APPLE 에어팟 프로 ');
+Insert into SALE (SALE_NO,SALE_TITLE) values ('S0100008','더함 우버 U431UHD SMART HDR 크롬캐스트 ');
+Insert into SALE (SALE_NO,SALE_TITLE) values ('S0100009','더함 우버 U751UHD SMART HDR 크롬캐스트 ');
+Insert into SALE (SALE_NO,SALE_TITLE) values ('S0100010','LG전자 OLED55BXENA ');
+Insert into SALE (SALE_NO,SALE_TITLE) values ('S0100012','DELL 인스피론 3881 DNDT3881-UB04KR-WH ');
+Insert into SALE (SALE_NO,SALE_TITLE) values ('S0100013','삼성전자 올인원PC DM530ADA-L58AW ');
+Insert into SALE (SALE_NO,SALE_TITLE) values ('S0100014','ASUS MiniPC PN40 J4025 White Win10 Pro ');
+Insert into SALE (SALE_NO,SALE_TITLE) values ('S0100015','MSI MAG 인피니트 10SE-1069KR ');
+Insert into SALE (SALE_NO,SALE_TITLE) values ('S0100016','MSI MAG 코덱스 X5 10TE-411KR ');
+Insert into SALE (SALE_NO,SALE_TITLE) values ('S0100017','삼성전자 데스크탑5 DM500TCZ-AD5A-LD ');
+Insert into SALE (SALE_NO,SALE_TITLE) values ('S0100018','삼성전자 데스크탑4 DM400TCA-YAI5-G660S5 ');
+Insert into SALE (SALE_NO,SALE_TITLE) values ('S0100019','MSI MAG 인피니트 10SE-R37 ');
+Insert into SALE (SALE_NO,SALE_TITLE) values ('S0100020','DELL 인스피론 27 7700 AIO DA7700 WH05KR ');
+Insert into SALE (SALE_NO,SALE_TITLE) values ('S0100021','LG전자 2020 울트라PC 13UD50N-GX30K ');
+Insert into SALE (SALE_NO,SALE_TITLE) values ('S0100022','레노버 아이디어패드 Slim3-15IIL 5D ');
+Insert into SALE (SALE_NO,SALE_TITLE) values ('S0100023','삼성전자 노트북 NT350XCR-AD5WA ');
+Insert into SALE (SALE_NO,SALE_TITLE) values ('S0100024','레노버 게이밍 3 15ARH R5 ZEN ');
+Insert into SALE (SALE_NO,SALE_TITLE) values ('S0100025','LG전자 2021 그램16 16ZD90P-GX50K');
+Insert into SALE (SALE_NO,SALE_TITLE) values ('S0100026','LG전자 2020 울트라PC 15UD50N-GX30K ');
+Insert into SALE (SALE_NO,SALE_TITLE) values ('S0100027','레노버 아이디어패드 L3-15IML 81Y3003CKR ');
+Insert into SALE (SALE_NO,SALE_TITLE) values ('S0100028','ASUS 비보북15 D513IA-BQ380 ');
+Insert into SALE (SALE_NO,SALE_TITLE) values ('S0100030','한성컴퓨터 올데이롱 TFX5470H ');
+Insert into SALE (SALE_NO,SALE_TITLE) values ('S0100031','삼성전자 갤럭시탭S6 라이트 10.4 Wi-Fi 64GB ');
+Insert into SALE (SALE_NO,SALE_TITLE) values ('S0100032','삼성전자 갤럭시탭S7 11 Wi-Fi 128GB ');
+Insert into SALE (SALE_NO,SALE_TITLE) values ('S0100033','APPLE 아이패드 에어 4세대 Wi-Fi 64GB ');
+Insert into SALE (SALE_NO,SALE_TITLE) values ('S0100034','삼성전자 갤럭시탭S7 플러스 12.4 Wi-Fi 256GB ');
+Insert into SALE (SALE_NO,SALE_TITLE) values ('S0100035','삼성전자 갤럭시탭A 8.0 2019 Wi-Fi 32GB ');
+Insert into SALE (SALE_NO,SALE_TITLE) values ('S0100036','삼성전자 갤럭시탭A7 10.4 2020 Wi-Fi 64GB ');
+Insert into SALE (SALE_NO,SALE_TITLE) values ('S0100037','삼성전자 갤럭시탭A 8.0 2019 with S펜 Wi-Fi 32GB ');
+Insert into SALE (SALE_NO,SALE_TITLE) values ('S0100038','삼성전자 갤럭시탭S6 라이트 10.4 Wi-Fi 128GB ');
+Insert into SALE (SALE_NO,SALE_TITLE) values ('S0100039','삼성전자 갤럭시탭A7 10.4 2020 Wi-Fi 32GB ');
+Insert into SALE (SALE_NO,SALE_TITLE) values ('S0100040','삼성전자 갤럭시탭S6 라이트 10.4 LTE 64GB ');
+Insert into SALE (SALE_NO,SALE_TITLE) values ('S0100041','삼성전자 갤럭시S21 5G 256GB');
+Insert into SALE (SALE_NO,SALE_TITLE) values ('S0100042','삼성전자 갤럭시A51 5G 2020 128GB, 공기계');
+Insert into SALE (SALE_NO,SALE_TITLE) values ('S0100043','삼성전자 갤럭시A31 2020 64GB, 공기계 ');
+Insert into SALE (SALE_NO,SALE_TITLE) values ('S0100044','삼성전자 갤럭시S21 플러스 5G 256GB, 공기계 ');
+Insert into SALE (SALE_NO,SALE_TITLE) values ('S0100045','삼성전자 갤럭시S21 울트라 5G 256GB, 공기계 ');
+Insert into SALE (SALE_NO,SALE_TITLE) values ('S0100046','삼성전자 갤럭시S20 FE 5G 128GB, 공기계');
+Insert into SALE (SALE_NO,SALE_TITLE) values ('S0100047','삼성전자 갤럭시노트20 울트라 5G 256GB, 공기계');
+Insert into SALE (SALE_NO,SALE_TITLE) values ('S0100049','삼성전자 갤럭시S21 울트라 5G 512GB, 공기계 ');
+Insert into SALE (SALE_NO,SALE_TITLE) values ('S0100050','APPLE 아이폰12 프로 5G 128GB, 공기계 ');
+Insert into SALE (SALE_NO,SALE_TITLE) values ('S0100051','SONY 알파 A7 III ');
+Insert into SALE (SALE_NO,SALE_TITLE) values ('S0100052','SONY 알파 A7C ');
+Insert into SALE (SALE_NO,SALE_TITLE) values ('S0100053','SONY 알파 A6400');
+Insert into SALE (SALE_NO,SALE_TITLE) values ('S0100054','후지필름 GFX 100S');
+Insert into SALE (SALE_NO,SALE_TITLE) values ('S0100055','SONY 알파 A7R IV ');
+Insert into SALE (SALE_NO,SALE_TITLE) values ('S0100056','SONY 알파 A7S III ');
+Insert into SALE (SALE_NO,SALE_TITLE) values ('S0100057','캐논 EOS R6 ');
+Insert into SALE (SALE_NO,SALE_TITLE) values ('S0100058','니콘 D850 ');
+Insert into SALE (SALE_NO,SALE_TITLE) values ('S0100059','파나소닉 루믹스 DC-S5 ');
+Insert into SALE (SALE_NO,SALE_TITLE) values ('S0100060','SONY ZV-1 ');
+Insert into SALE (SALE_NO,SALE_TITLE) values ('S0100061','삼성전자 갤럭시 버즈 프로 ');
+Insert into SALE (SALE_NO,SALE_TITLE) values ('S0100063','QCY T10 ');
+Insert into SALE (SALE_NO,SALE_TITLE) values ('S0100064','SKY Fit Blooming IM-S200 ');
+Insert into SALE (SALE_NO,SALE_TITLE) values ('S0100065','삼성전자 갤럭시 버즈 라이브 SM-R180 ');
+Insert into SALE (SALE_NO,SALE_TITLE) values ('S0100066','엠지텍 아이언 V50 ');
+Insert into SALE (SALE_NO,SALE_TITLE) values ('S0100067','엠지텍 아이언 V60 ');
+Insert into SALE (SALE_NO,SALE_TITLE) values ('S0100068','엠지텍 아이언 V65 ');
+Insert into SALE (SALE_NO,SALE_TITLE) values ('S0100069','삼성전자 갤럭시 버즈 플러스 SM-R175 ');
+Insert into SALE (SALE_NO,SALE_TITLE) values ('S0100070','제닉스 STORMX TITAN 인-이어 ');
+Insert into SALE (SALE_NO,SALE_TITLE) values ('S0200001','★삼성특별전(베스트셀러 5개!!!!!!!!)');
+Insert into SALE (SALE_NO,SALE_TITLE) values ('S0100001','이스트라 AN650UHD 안드로이드 더 스마트 Ai (스탠드) ');
+REM INSERTING into SALEDETAIL
+SET DEFINE OFF;
+Insert into SALEDETAIL (SALEDETAIL_NO,SALE_NO,PROD_ID) values ('SD01005','S0100002','P101000002');
+Insert into SALEDETAIL (SALEDETAIL_NO,SALE_NO,PROD_ID) values ('SD01006','S0100003','P101000003');
+Insert into SALEDETAIL (SALEDETAIL_NO,SALE_NO,PROD_ID) values ('SD01001','S0100004','P101000004');
+Insert into SALEDETAIL (SALEDETAIL_NO,SALE_NO,PROD_ID) values ('SD01002','S0100005','P101000005');
+Insert into SALEDETAIL (SALEDETAIL_NO,SALE_NO,PROD_ID) values ('SD01003','S0100006','P101000006');
+Insert into SALEDETAIL (SALEDETAIL_NO,SALE_NO,PROD_ID) values ('SD01004','S0100007','P101000007');
+Insert into SALEDETAIL (SALEDETAIL_NO,SALE_NO,PROD_ID) values ('SD01007','S0100008','P101000008');
+Insert into SALEDETAIL (SALEDETAIL_NO,SALE_NO,PROD_ID) values ('SD01008','S0100009','P101000009');
+Insert into SALEDETAIL (SALEDETAIL_NO,SALE_NO,PROD_ID) values ('SD01009','S0100010','P101000010');
+Insert into SALEDETAIL (SALEDETAIL_NO,SALE_NO,PROD_ID) values ('SD01010','S0100011','P102000001');
+Insert into SALEDETAIL (SALEDETAIL_NO,SALE_NO,PROD_ID) values ('SD01011','S0100012','P102000002');
+Insert into SALEDETAIL (SALEDETAIL_NO,SALE_NO,PROD_ID) values ('SD01012','S0100013','P102000003');
+Insert into SALEDETAIL (SALEDETAIL_NO,SALE_NO,PROD_ID) values ('SD01013','S0100014','P102000004');
+Insert into SALEDETAIL (SALEDETAIL_NO,SALE_NO,PROD_ID) values ('SD01014','S0100015','P102000005');
+Insert into SALEDETAIL (SALEDETAIL_NO,SALE_NO,PROD_ID) values ('SD01015','S0100016','P102000006');
+Insert into SALEDETAIL (SALEDETAIL_NO,SALE_NO,PROD_ID) values ('SD01016','S0100017','P102000007');
+Insert into SALEDETAIL (SALEDETAIL_NO,SALE_NO,PROD_ID) values ('SD01017','S0100018','P102000008');
+Insert into SALEDETAIL (SALEDETAIL_NO,SALE_NO,PROD_ID) values ('SD01018','S0100019','P102000009');
+Insert into SALEDETAIL (SALEDETAIL_NO,SALE_NO,PROD_ID) values ('SD01019','S0100020','P102000010');
+Insert into SALEDETAIL (SALEDETAIL_NO,SALE_NO,PROD_ID) values ('SD01020','S0100021','P103000001');
+Insert into SALEDETAIL (SALEDETAIL_NO,SALE_NO,PROD_ID) values ('SD01021','S0100022','P103000002');
+Insert into SALEDETAIL (SALEDETAIL_NO,SALE_NO,PROD_ID) values ('SD01022','S0100023','P103000003');
+Insert into SALEDETAIL (SALEDETAIL_NO,SALE_NO,PROD_ID) values ('SD01023','S0100024','P103000004');
+Insert into SALEDETAIL (SALEDETAIL_NO,SALE_NO,PROD_ID) values ('SD01024','S0100025','P103000005');
+Insert into SALEDETAIL (SALEDETAIL_NO,SALE_NO,PROD_ID) values ('SD01025','S0100026','P103000006');
+Insert into SALEDETAIL (SALEDETAIL_NO,SALE_NO,PROD_ID) values ('SD01026','S0100027','P103000007');
+Insert into SALEDETAIL (SALEDETAIL_NO,SALE_NO,PROD_ID) values ('SD01027','S0100028','P103000008');
+Insert into SALEDETAIL (SALEDETAIL_NO,SALE_NO,PROD_ID) values ('SD01028','S0100029','P103000009');
+Insert into SALEDETAIL (SALEDETAIL_NO,SALE_NO,PROD_ID) values ('SD01029','S0100030','P103000010');
+Insert into SALEDETAIL (SALEDETAIL_NO,SALE_NO,PROD_ID) values ('SD01030','S0100031','P104000001');
+Insert into SALEDETAIL (SALEDETAIL_NO,SALE_NO,PROD_ID) values ('SD01031','S0100032','P104000002');
+Insert into SALEDETAIL (SALEDETAIL_NO,SALE_NO,PROD_ID) values ('SD01032','S0100033','P104000003');
+Insert into SALEDETAIL (SALEDETAIL_NO,SALE_NO,PROD_ID) values ('SD01033','S0100034','P104000004');
+Insert into SALEDETAIL (SALEDETAIL_NO,SALE_NO,PROD_ID) values ('SD01034','S0100035','P104000005');
+Insert into SALEDETAIL (SALEDETAIL_NO,SALE_NO,PROD_ID) values ('SD01035','S0100036','P104000006');
+Insert into SALEDETAIL (SALEDETAIL_NO,SALE_NO,PROD_ID) values ('SD01036','S0100037','P104000007');
+Insert into SALEDETAIL (SALEDETAIL_NO,SALE_NO,PROD_ID) values ('SD01037','S0100038','P104000008');
+Insert into SALEDETAIL (SALEDETAIL_NO,SALE_NO,PROD_ID) values ('SD01038','S0100039','P104000009');
+Insert into SALEDETAIL (SALEDETAIL_NO,SALE_NO,PROD_ID) values ('SD01039','S0100040','P104000010');
+Insert into SALEDETAIL (SALEDETAIL_NO,SALE_NO,PROD_ID) values ('SD01040','S0100041','P105000001');
+Insert into SALEDETAIL (SALEDETAIL_NO,SALE_NO,PROD_ID) values ('SD01041','S0100042','P105000002');
+Insert into SALEDETAIL (SALEDETAIL_NO,SALE_NO,PROD_ID) values ('SD01042','S0100043','P105000003');
+Insert into SALEDETAIL (SALEDETAIL_NO,SALE_NO,PROD_ID) values ('SD01043','S0100044','P105000004');
+Insert into SALEDETAIL (SALEDETAIL_NO,SALE_NO,PROD_ID) values ('SD01044','S0100045','P105000005');
+Insert into SALEDETAIL (SALEDETAIL_NO,SALE_NO,PROD_ID) values ('SD01045','S0100046','P105000006');
+Insert into SALEDETAIL (SALEDETAIL_NO,SALE_NO,PROD_ID) values ('SD01046','S0100047','P105000007');
+Insert into SALEDETAIL (SALEDETAIL_NO,SALE_NO,PROD_ID) values ('SD01047','S0100048','P105000008');
+Insert into SALEDETAIL (SALEDETAIL_NO,SALE_NO,PROD_ID) values ('SD01048','S0100049','P105000009');
+Insert into SALEDETAIL (SALEDETAIL_NO,SALE_NO,PROD_ID) values ('SD01049','S0100050','P105000010');
+Insert into SALEDETAIL (SALEDETAIL_NO,SALE_NO,PROD_ID) values ('SD01050','S0100051','P106000001');
+Insert into SALEDETAIL (SALEDETAIL_NO,SALE_NO,PROD_ID) values ('SD01051','S0100052','P106000002');
+Insert into SALEDETAIL (SALEDETAIL_NO,SALE_NO,PROD_ID) values ('SD01052','S0100053','P106000003');
+Insert into SALEDETAIL (SALEDETAIL_NO,SALE_NO,PROD_ID) values ('SD01053','S0100054','P106000004');
+Insert into SALEDETAIL (SALEDETAIL_NO,SALE_NO,PROD_ID) values ('SD01054','S0100055','P106000005');
+Insert into SALEDETAIL (SALEDETAIL_NO,SALE_NO,PROD_ID) values ('SD01055','S0100056','P106000006');
+Insert into SALEDETAIL (SALEDETAIL_NO,SALE_NO,PROD_ID) values ('SD01056','S0100057','P106000007');
+Insert into SALEDETAIL (SALEDETAIL_NO,SALE_NO,PROD_ID) values ('SD01057','S0100058','P106000008');
+Insert into SALEDETAIL (SALEDETAIL_NO,SALE_NO,PROD_ID) values ('SD01058','S0100059','P106000009');
+Insert into SALEDETAIL (SALEDETAIL_NO,SALE_NO,PROD_ID) values ('SD01059','S0100060','P106000010');
+Insert into SALEDETAIL (SALEDETAIL_NO,SALE_NO,PROD_ID) values ('SD01060','S0100061','P107000001');
+Insert into SALEDETAIL (SALEDETAIL_NO,SALE_NO,PROD_ID) values ('SD01061','S0100062','P107000002');
+Insert into SALEDETAIL (SALEDETAIL_NO,SALE_NO,PROD_ID) values ('SD01062','S0100063','P107000003');
+Insert into SALEDETAIL (SALEDETAIL_NO,SALE_NO,PROD_ID) values ('SD01063','S0100064','P107000004');
+Insert into SALEDETAIL (SALEDETAIL_NO,SALE_NO,PROD_ID) values ('SD01064','S0100065','P107000005');
+Insert into SALEDETAIL (SALEDETAIL_NO,SALE_NO,PROD_ID) values ('SD01065','S0100066','P107000006');
+Insert into SALEDETAIL (SALEDETAIL_NO,SALE_NO,PROD_ID) values ('SD01066','S0100067','P107000007');
+Insert into SALEDETAIL (SALEDETAIL_NO,SALE_NO,PROD_ID) values ('SD01067','S0100068','P107000008');
+Insert into SALEDETAIL (SALEDETAIL_NO,SALE_NO,PROD_ID) values ('SD01068','S0100069','P107000009');
+Insert into SALEDETAIL (SALEDETAIL_NO,SALE_NO,PROD_ID) values ('SD01069','S0100070','P107000010');
+Insert into SALEDETAIL (SALEDETAIL_NO,SALE_NO,PROD_ID) values ('SD01070','S0200001','P101000006');
+Insert into SALEDETAIL (SALEDETAIL_NO,SALE_NO,PROD_ID) values ('SD01071','S0200001','P102000001');
+Insert into SALEDETAIL (SALEDETAIL_NO,SALE_NO,PROD_ID) values ('SD01072','S0200001','P103000003');
+Insert into SALEDETAIL (SALEDETAIL_NO,SALE_NO,PROD_ID) values ('SD01073','S0200001','P104000001');
+Insert into SALEDETAIL (SALEDETAIL_NO,SALE_NO,PROD_ID) values ('SD01074','S0200001','P105000004');
+--------------------------------------------------------
+--  DDL for Index SYS_C008270
+--------------------------------------------------------
+
+  CREATE UNIQUE INDEX "SYS_C008270" ON "CART" ("CART_ID") 
+  ;
+--------------------------------------------------------
+--  DDL for Index SYS_C008274
+--------------------------------------------------------
+
+  CREATE UNIQUE INDEX "SYS_C008274" ON "CARTDETAIL" ("CARTDETAIL_NO") 
+  ;
+--------------------------------------------------------
+--  DDL for Index SYS_C008277
+--------------------------------------------------------
+
+  CREATE UNIQUE INDEX "SYS_C008277" ON "LPROD" ("LPROD_GU") 
+  ;
+--------------------------------------------------------
+--  DDL for Index SYS_C008286
+--------------------------------------------------------
+
+  CREATE UNIQUE INDEX "SYS_C008286" ON "MEMBER" ("MEM_ID") 
+  ;
+--------------------------------------------------------
+--  DDL for Index PK_NOTICE
+--------------------------------------------------------
+
+  CREATE UNIQUE INDEX "PK_NOTICE" ON "NOTICE" ("NOTICE_NO") 
+  ;
+--------------------------------------------------------
+--  DDL for Index SYS_C008289
+--------------------------------------------------------
+
+  CREATE UNIQUE INDEX "SYS_C008289" ON "ORDER1" ("ORDER1_NO") 
+  ;
+--------------------------------------------------------
+--  DDL for Index SYS_C008293
+--------------------------------------------------------
+
+  CREATE UNIQUE INDEX "SYS_C008293" ON "ORDERDETAIL" ("ORDERDETAIL_NO") 
+  ;
+--------------------------------------------------------
+--  DDL for Index SYS_C008297
+--------------------------------------------------------
+
+  CREATE UNIQUE INDEX "SYS_C008297" ON "PROD" ("PROD_ID") 
+  ;
+--------------------------------------------------------
+--  DDL for Index SYS_C008302
+--------------------------------------------------------
+
+  CREATE UNIQUE INDEX "SYS_C008302" ON "REVIEW" ("REVIEW_NO") 
+  ;
+--------------------------------------------------------
+--  DDL for Index SYS_C008304
+--------------------------------------------------------
+
+  CREATE UNIQUE INDEX "SYS_C008304" ON "SALE" ("SALE_NO") 
+  ;
+--------------------------------------------------------
+--  DDL for Index SYS_C008308
+--------------------------------------------------------
+
+  CREATE UNIQUE INDEX "SYS_C008308" ON "SALEDETAIL" ("SALEDETAIL_NO") 
+  ;
+--------------------------------------------------------
+--  Constraints for Table CART
+--------------------------------------------------------
+
+  ALTER TABLE "CART" MODIFY ("CART_ID" NOT NULL ENABLE);
+  ALTER TABLE "CART" MODIFY ("MEM_ID" NOT NULL ENABLE);
+  ALTER TABLE "CART" ADD PRIMARY KEY ("CART_ID") ENABLE;
+--------------------------------------------------------
+--  Constraints for Table CARTDETAIL
+--------------------------------------------------------
+
+  ALTER TABLE "CARTDETAIL" MODIFY ("CARTDETAIL_NO" NOT NULL ENABLE);
+  ALTER TABLE "CARTDETAIL" MODIFY ("CART_ID" NOT NULL ENABLE);
+  ALTER TABLE "CARTDETAIL" MODIFY ("PROD_ID" NOT NULL ENABLE);
+  ALTER TABLE "CARTDETAIL" ADD PRIMARY KEY ("CARTDETAIL_NO") ENABLE;
+--------------------------------------------------------
+--  Constraints for Table LPROD
+--------------------------------------------------------
+
+  ALTER TABLE "LPROD" MODIFY ("LPROD_ID" NOT NULL ENABLE);
+  ALTER TABLE "LPROD" MODIFY ("LPROD_GU" NOT NULL ENABLE);
+  ALTER TABLE "LPROD" ADD PRIMARY KEY ("LPROD_GU") ENABLE;
+--------------------------------------------------------
+--  Constraints for Table MEMBER
+--------------------------------------------------------
+
+  ALTER TABLE "MEMBER" MODIFY ("MEM_ID" NOT NULL ENABLE);
+  ALTER TABLE "MEMBER" MODIFY ("MEM_PASS" NOT NULL ENABLE);
+  ALTER TABLE "MEMBER" MODIFY ("MEM_NAME" NOT NULL ENABLE);
+  ALTER TABLE "MEMBER" ADD PRIMARY KEY ("MEM_ID") ENABLE;
+--------------------------------------------------------
+--  Constraints for Table NOTICE
+--------------------------------------------------------
+
+  ALTER TABLE "NOTICE" ADD CONSTRAINT "PK_NOTICE" PRIMARY KEY ("NOTICE_NO") ENABLE;
+  ALTER TABLE "NOTICE" MODIFY ("NOTICE_NO" NOT NULL ENABLE);
+--------------------------------------------------------
+--  Constraints for Table ORDER1
+--------------------------------------------------------
+
+  ALTER TABLE "ORDER1" MODIFY ("ORDER1_NO" NOT NULL ENABLE);
+  ALTER TABLE "ORDER1" MODIFY ("MEM_ID" NOT NULL ENABLE);
+  ALTER TABLE "ORDER1" ADD PRIMARY KEY ("ORDER1_NO") ENABLE;
+--------------------------------------------------------
+--  Constraints for Table ORDERDETAIL
+--------------------------------------------------------
+
+  ALTER TABLE "ORDERDETAIL" ADD CONSTRAINT "SYS_C009234" PRIMARY KEY ("ORDERDETAIL_NO") ENABLE;
+  ALTER TABLE "ORDERDETAIL" MODIFY ("ORDERDETAIL_NO" NOT NULL ENABLE);
+--------------------------------------------------------
+--  Constraints for Table PROD
+--------------------------------------------------------
+
+  ALTER TABLE "PROD" MODIFY ("PROD_ID" NOT NULL ENABLE);
+  ALTER TABLE "PROD" MODIFY ("LPROD_GU" NOT NULL ENABLE);
+  ALTER TABLE "PROD" MODIFY ("PROD_SALE" NOT NULL ENABLE);
+  ALTER TABLE "PROD" ADD PRIMARY KEY ("PROD_ID") ENABLE;
+--------------------------------------------------------
+--  Constraints for Table REVIEW
+--------------------------------------------------------
+
+  ALTER TABLE "REVIEW" MODIFY ("REVIEW_NO" NOT NULL ENABLE);
+  ALTER TABLE "REVIEW" MODIFY ("MEM_ID" NOT NULL ENABLE);
+  ALTER TABLE "REVIEW" MODIFY ("PROD_ID" NOT NULL ENABLE);
+  ALTER TABLE "REVIEW" MODIFY ("RATING" NOT NULL ENABLE);
+  ALTER TABLE "REVIEW" ADD PRIMARY KEY ("REVIEW_NO") ENABLE;
+--------------------------------------------------------
+--  Constraints for Table SALE
+--------------------------------------------------------
+
+  ALTER TABLE "SALE" MODIFY ("SALE_NO" NOT NULL ENABLE);
+  ALTER TABLE "SALE" ADD PRIMARY KEY ("SALE_NO") ENABLE;
+--------------------------------------------------------
+--  Constraints for Table SALEDETAIL
+--------------------------------------------------------
+
+  ALTER TABLE "SALEDETAIL" MODIFY ("SALEDETAIL_NO" NOT NULL ENABLE);
+  ALTER TABLE "SALEDETAIL" MODIFY ("SALE_NO" NOT NULL ENABLE);
+  ALTER TABLE "SALEDETAIL" MODIFY ("PROD_ID" NOT NULL ENABLE);
+  ALTER TABLE "SALEDETAIL" ADD PRIMARY KEY ("SALEDETAIL_NO") ENABLE;
+--------------------------------------------------------
+--  Ref Constraints for Table CART
+--------------------------------------------------------
+
+  ALTER TABLE "CART" ADD CONSTRAINT "SYS_C009253" FOREIGN KEY ("MEM_ID")
+	  REFERENCES "MEMBER" ("MEM_ID") ON DELETE CASCADE ENABLE;
+--------------------------------------------------------
+--  Ref Constraints for Table CARTDETAIL
+--------------------------------------------------------
+
+  ALTER TABLE "CARTDETAIL" ADD FOREIGN KEY ("CART_ID")
+	  REFERENCES "CART" ("CART_ID") ENABLE;
+  ALTER TABLE "CARTDETAIL" ADD FOREIGN KEY ("PROD_ID")
+	  REFERENCES "PROD" ("PROD_ID") ENABLE;
+--------------------------------------------------------
+--  Ref Constraints for Table NOTICE
+--------------------------------------------------------
+
+  ALTER TABLE "NOTICE" ADD CONSTRAINT "FK_NOTICE_MEMBER" FOREIGN KEY ("MEM_ID")
+	  REFERENCES "MEMBER" ("MEM_ID") ENABLE;
+--------------------------------------------------------
+--  Ref Constraints for Table ORDER1
+--------------------------------------------------------
+
+  ALTER TABLE "ORDER1" ADD CONSTRAINT "SYS_C009256" FOREIGN KEY ("MEM_ID")
+	  REFERENCES "MEMBER" ("MEM_ID") ON DELETE CASCADE ENABLE;
+--------------------------------------------------------
+--  Ref Constraints for Table ORDERDETAIL
+--------------------------------------------------------
+
+  ALTER TABLE "ORDERDETAIL" ADD CONSTRAINT "ORDERDETAIL_FK1" FOREIGN KEY ("ORDER1_NO")
+	  REFERENCES "ORDER1" ("ORDER1_NO") ON DELETE CASCADE ENABLE;
+--------------------------------------------------------
+--  Ref Constraints for Table PROD
+--------------------------------------------------------
+
+  ALTER TABLE "PROD" ADD FOREIGN KEY ("LPROD_GU")
+	  REFERENCES "LPROD" ("LPROD_GU") ENABLE;
+--------------------------------------------------------
+--  Ref Constraints for Table REVIEW
+--------------------------------------------------------
+
+  ALTER TABLE "REVIEW" ADD CONSTRAINT "SYS_C009260" FOREIGN KEY ("MEM_ID")
+	  REFERENCES "MEMBER" ("MEM_ID") ON DELETE CASCADE ENABLE;
+  ALTER TABLE "REVIEW" ADD FOREIGN KEY ("PROD_ID")
+	  REFERENCES "PROD" ("PROD_ID") ENABLE;
+--------------------------------------------------------
+--  Ref Constraints for Table SALEDETAIL
+--------------------------------------------------------
+
+  ALTER TABLE "SALEDETAIL" ADD FOREIGN KEY ("PROD_ID")
+	  REFERENCES "PROD" ("PROD_ID") ENABLE;
+  ALTER TABLE "SALEDETAIL" ADD FOREIGN KEY ("SALE_NO")
+	  REFERENCES "SALE" ("SALE_NO") ENABLE;
